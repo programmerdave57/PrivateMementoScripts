@@ -1,4 +1,4 @@
-funtion davetest1()
+function davetest1()
 {
 	return "Hello, World!";
 }
