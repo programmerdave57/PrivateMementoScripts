@@ -9,6 +9,21 @@ function _setOmdbField( e, o, name )
     e.set( mname, o[name] );
 }
 
+function setEntryId( e )
+{
+    var imdbid;
+    
+    imdbid = e.field( "o_imdbid" );
+    if ( imdbid )
+    {
+        e.set( "ID", imdbid );
+    }
+    else
+    {
+        // what to do? ...
+    }
+}
+
 function setOmdbFields( e )
 {
     var otext, o;
@@ -32,6 +47,8 @@ function setOmdbFields( e )
         for ( i=0; i<count; i++ )
             _setOmdbField( e, o, fieldnames[i] );
     }
+    
+    setEntryId( e );
 }
 
 //e = entry();
