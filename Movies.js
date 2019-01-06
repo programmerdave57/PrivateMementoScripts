@@ -34,7 +34,7 @@ function setPosterFilename( e )
     {
         fname = path + "/" +
                 id + ".jpg";
-        e.set( "Poster", [fname] );
+        e.set( "Poster", fname );
     }
 }
 
