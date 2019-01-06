@@ -24,6 +24,20 @@ function setEntryId( e )
     }
 }
 
+function setPosterFilename( e )
+{
+    var path = "/storage/extSdCard/Dave/memento/files/MoviePosters";
+    var id, fname;
+    
+    id = e.field( "ID" );
+    if ( id )
+    {
+        fname = path + "/" +
+                id + ".jpg";
+        e.set( "Poster", [fname] );
+    }
+}
+
 function setOmdbFields( e )
 {
     var otext, o;
@@ -49,6 +63,7 @@ function setOmdbFields( e )
     }
     
     setEntryId( e );
+    setPosterFilename( e );
 }
 
 //e = entry();
