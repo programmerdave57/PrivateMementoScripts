@@ -26,7 +26,7 @@ function setEntryId( e )
 
 function setPosterFilename( e )
 {
-    var path = "/storage/extSdCard/Dave/memento/files/MoviePosters";
+    var path = "/storage/extSdCard/Dave/memento/files/Images/Movie Posters";
     var id, fname;
     
     id = e.field( "ID" );
