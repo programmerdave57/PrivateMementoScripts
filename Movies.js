@@ -66,5 +66,26 @@ function setOmdbFields( e )
     setPosterFilename( e );
 }
 
+function getOmdbEntry( e )
+{
+    var title, etitle, year;
+    var response;
+    var url = "http://www.omdbapi.com/?i=tt3896198&apikey=cb500913&plot=full&r=json&t=";
+    
+    year = e.field( "Year" );
+    title = e.field( "IMDb Title" );
+    if ( title == "*SAME" )
+        title = e.field( "Title" );
+    etitle = encodeURIComponent( title );
+    url += etitle;
+    
+    if ( year )
+        url += "&y=" + year;
+    
+    response = http().get( url );
+    e.set( "OMDb Entry", response.body );
+    setOmdbFields( e );
+}
+
 //e = entry();
 //setOmdbFields( e );
