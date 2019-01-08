@@ -89,7 +89,7 @@ function getOmdbEntry( e )
 
 function importEntries()
 {
-    var lib, e;
+    var mlib, e;
     var fname = "/storage/emulated/0/memento/movies_import.json";
     
     var data, text, f, one, title, obj;
@@ -103,7 +103,7 @@ function importEntries()
     f.close();
     data = JSON.parse( text );
     
-    lib = lib();
+    mlib = lib();
     count = data.titles.length;
     for ( i=0; i<count; i++ )
     {
@@ -115,14 +115,14 @@ function importEntries()
             continue;
     
         title = one.Title;
-        e = lib.findByKey( title );
+        e = mlib.findByKey( title );
         if ( ! e )
         {
             obj = {};
             obj.Title = title;
             obj.Availability = [one.Source];
             obj.Imported = true;
-            e = lib.create( obj );
+            e = mlib.create( obj );
     
             getOmdbEntry( e );
     
