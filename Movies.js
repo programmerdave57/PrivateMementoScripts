@@ -9,6 +9,25 @@ function _setOmdbField( e, o, name )
     e.set( mname, o[name] );
 }
 
+function fixTitle( e )
+{
+    var otext, o, title, otitle;
+    
+    // sometimes the case is wrong...
+    
+    otext = e.field( "OMDb Entry" );
+    o = JSON.parse( otext );
+    
+    title = e.field( "Title" );
+    otitle = o.Title;
+    
+    if ( (otitle)
+    &&   (title != otitle) )
+    {
+        e.set( "Title", otitle );
+    }
+}
+
 function setEntryId( e )
 {
     var imdbid;
@@ -62,6 +81,7 @@ function setOmdbFields( e )
             _setOmdbField( e, o, fieldnames[i] );
     }
     
+    fixTitle( e );
     setEntryId( e );
     setPosterFilename( e );
 }
