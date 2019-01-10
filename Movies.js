@@ -45,16 +45,32 @@ function setEntryId( e )
 
 function setPosterFilename( e )
 {
-    var path = "file:///storage/extSdCard/Dave/memento/files/Images/Movie Posters";
-    var id, fname;
+  var path = "file:///storage/extSdCard/Dave/memento/files/Images/Movie Posters";
+  var id, fname;
+  var url, pos;
+  var ext = ".jpg";
     
-    id = e.field( "ID" );
-    if ( id )
+  id = e.field( "ID" );
+  if ( id )
+  {
+    url = e.field( "o_poster" );
+    if ( url )
     {
-        fname = path + "/" +
-                id + ".jpg";
-        e.set( "Poster", [fname] );
+      pos = url.lastIndexOf( "." );
+      if ( pos != -1 )
+      {
+        // a little sanity check...
+        if ( (url.length-pos-1) <=4 )
+        {
+          ext = url.substr( pos );
+        }
+      }
     }
+    
+    fname = path + "/" +
+            id + ext;
+    e.set( "Poster", [fname] );        
+  }
 }
 
 function setOmdbFields( e )
