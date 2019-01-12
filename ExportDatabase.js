@@ -19,6 +19,8 @@ const SCRIPTVER = 3;
 //   files to prevent out of memory
 //   errors.
 
+// only formatting changes made is this version only..
+
 function davelog( msg )
 {
 	log( msg );
