@@ -20,6 +20,7 @@ const SCRIPTVER = 3;
 //   errors.
 
 // only formatting changes made is this version only..
+// converted tabs to spaces because of Quoda...
 
 function davelog( msg )
 {
