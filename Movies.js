@@ -128,7 +128,7 @@ function getOmdbEntry( e )
         url += "&t=" + title;
     }
     
-    message( url );
+    //message( url );
     
     response = http().get( url );
     e.set( "OMDb Entry", response.body );
