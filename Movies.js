@@ -104,11 +104,12 @@ function setOmdbFields( e )
 
 function getOmdbEntry( e )
 {
-    var title, etitle, year;
+    var title, etitle, year, id;
     var response;
-    var url = "http://www.omdbapi.com/?i=tt3896198&apikey=cb500913&plot=full&r=json&t=";
+    var url = "http://www.omdbapi.com/?i=tt3896198&apikey=cb500913&plot=full&r=json";
     
     year = e.field( "Year" );
+    id = e.field("ID");
     title = e.field( "IMDb Title" );
     if ( title == "*SAME" )
         title = e.field( "Title" );
@@ -117,6 +118,15 @@ function getOmdbEntry( e )
     
     if ( year )
         url += "&y=" + year;
+        
+    if ( id )
+    (
+        url += "&id=" + id;
+    }
+    else
+    {
+        url += "&t=" + title;
+    }
     
     response = http().get( url );
     e.set( "OMDb Entry", response.body );
