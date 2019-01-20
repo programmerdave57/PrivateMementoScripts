@@ -120,7 +120,7 @@ function getOmdbEntry( e )
         url += "&y=" + year;
         
     if ( id )
-    (
+    {
         url += "&id=" + id;
     }
     else
