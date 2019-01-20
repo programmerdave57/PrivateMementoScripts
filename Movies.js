@@ -121,7 +121,7 @@ function getOmdbEntry( e )
         
     if ( id )
     {
-        url += "&id=" + id;
+        url += "&i=" + id;
     }
     else
     {
