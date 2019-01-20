@@ -106,7 +106,7 @@ function getOmdbEntry( e )
 {
     var title, etitle, year, id;
     var response;
-    var url = "http://www.omdbapi.com/?i=tt3896198&apikey=cb500913&plot=full&r=json";
+    var url = "http://www.omdbapi.com/?apikey=cb500913&plot=full&r=json";
     
     year = e.field( "Year" );
     id = e.field("ID");
