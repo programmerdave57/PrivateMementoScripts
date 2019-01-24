@@ -61,3 +61,8 @@ function AddStandardTsNoteToDesc()
 
 //AddTsNoteToField(
 //       entry(), arg("Note"),"Desc", arg("When") );
+
+function ShowAgoMessage( datefieldname )
+{
+    message( moment(entry().field(datefieldname)).fromNow() );
+}
