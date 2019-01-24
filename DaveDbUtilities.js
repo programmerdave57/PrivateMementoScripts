@@ -21,5 +21,43 @@ function AddTsNoteToField(
     e.set( fieldname, text );
 }
 
+function GetTimestampWithOffset(
+            when, ago )
+{
+    var ts;
+
+    ts = when;
+
+    if ( ! ts )
+        ts = new Date();
+
+    if ( ago )
+    {
+        ts = moment(ts)
+              .add(-ago, "m")
+              .toDate();
+    }
+
+    return ts;
+}
+
+function AddStandardTsNoteToDesc()
+{
+    var when;
+    
+    // for convenience...
+    // uses all standard names...
+    
+    when = GetTimestampWithOffset(
+               arg("When"),
+               arg("Minutes Ago") );
+
+    AddTsNoteToField(
+       entry(),
+       arg("Note"),
+       "Desc",
+       when );
+}
+
 //AddTsNoteToField(
 //       entry(), arg("Note"),"Desc", arg("When") );
