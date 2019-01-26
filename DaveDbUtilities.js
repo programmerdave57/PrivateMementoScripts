@@ -28,7 +28,7 @@ function AddTsNoteToField(
     note = ts + "\n" + note;
     
     AddNoteToField(
-            e, note, fieldmame);
+            e, note, fieldname);
 }
 
 function GetTimestampWithOffset(
