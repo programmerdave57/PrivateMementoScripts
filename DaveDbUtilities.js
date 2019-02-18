@@ -105,6 +105,21 @@ function ReadCurrentIdFromFile( lib )
     return id;
 }
 
+function WriteCurrentIdToFile( e, lib )
+{
+    var fname, id, f;
+    
+    if ( ! lib )
+        lib = lib();
+
+    id = e.id;
+    fname = MakeCurrentIdFilename(lib);
+    f = file(fname);
+    f.write(id);
+    f.close();
+    //message( id );
+}
+
 function FindCurrentEntry( lib )
 {
     var e, id;
