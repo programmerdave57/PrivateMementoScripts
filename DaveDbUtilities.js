@@ -1,4 +1,4 @@
-// DaveDbUtilities.js
+-// DaveDbUtilities.js
 
 function AddNoteToField(
             e, note, fieldname )
@@ -75,6 +75,69 @@ function AddStandardTsNoteToDesc()
 function ShowAgoMessage( datefieldname )
 {
     message( moment(entry().field(datefieldname)).fromNow() );
+}
+
+// current entry stuff...
+function MakeCurrentIdFilename( lib )
+{
+    var dir = "/storage/emulated/0/memento";
+    var prefix = "CurrentID_";
+    var suffix = ".txt";
+    var fname, libname;
+
+    if ( ! lib )
+        lib = lib();
+    libname = lib.title;
+    fname = dir + "/" + prefix + libname + suffix;
+    return fname;
+}
+
+function ReadCurrentIdFromFile( lib )
+{
+    var fname, id, f;
+
+    fname = MakeCurrentIdFilename(lib);
+    f = file(fname);
+    id = f.readLine(id);
+    f.close();
+    //message( id );
+
+    return id;
+}
+
+function FindCurrentEntry( lib )
+{
+    var e, id;
+
+    if ( ! lib )
+        lib = lib();
+
+    id = ReadCurrentIdFromFile( lib );
+    e = lib.findById( id );
+
+    return e;
+}
+
+function AddTsNoteToCurrentEntry()
+{
+    var when, e;
+    
+    // for convenience...
+    // uses all standard names...
+    
+    when = GetTimestampWithOffset(
+               arg("When"),
+               arg("Minutes Ago") );
+
+    e = FindCurrentEntry( lib() );
+
+    AddTsNoteToField(
+       e,
+       arg("Note"),
+       "Desc",
+       when );
+
+    message( "Note added to " + e.title );
 }
 
 /*
