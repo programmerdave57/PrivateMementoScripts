@@ -26,7 +26,7 @@ function AddTsNoteToField(
         when = new Date();
     ts = moment(when).format("ddd YYYY-MM-DD h:mm a");
     note = ts + "\n" + note;
-.    
+
     AddNoteToField(
             e, note, fieldname);
 }
