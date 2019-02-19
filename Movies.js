@@ -170,6 +170,7 @@ function importEntries()
             obj.Title = title;
             obj.Availability = [one.Source];
             obj.Imported = true;
+            obj.Workflow = "Imported";
             e = mlib.create( obj );
     
             getOmdbEntry( e );
