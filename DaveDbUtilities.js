@@ -80,7 +80,7 @@ function ShowAgoMessage( datefieldname )
 // current entry stuff...
 function MakeCurrentIdFilename( lib )
 {
-    var dir = "/storage/emulated/0/memento";
+    var dir = "/storage/emulated/0/memento/Dave/data";
     var prefix = "CurrentID_";
     var suffix = ".txt";
     var fname, libname;
