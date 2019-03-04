@@ -1,7 +1,6 @@
 // Shopping.js
 
-function
- AssociateShoppingEntryWithProducts( e )
+function AssociateShoppingEntryWithProducts( e )
 {
     var id, prods, prod, count, i;
 
@@ -13,4 +12,16 @@ function
         prod = prods[i];
         prod.set( "ShoppingListEntryId", id );
     }
+}
+
+function BuyThisProduct( thise )
+{
+    var lib, e, id, title;
+
+    id = thise.field( "ShoppingListEntryId" );
+    title = thise.title;
+
+    lib = libByName("Shopping List" );
+    e = lib.findById( id );
+    e.set( "Product", title );
 }
