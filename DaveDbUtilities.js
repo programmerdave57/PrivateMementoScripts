@@ -155,6 +155,23 @@ function AddTsNoteToCurrentEntry()
     message( "Note added to " + e.title );
 }
 
+function AddNoteToCurrentEntry()
+{
+    var e;
+    
+    // for convenience...
+    // uses all standard names...
+    
+    e = FindCurrentEntry( lib() );
+
+    AddNoteToField(
+       e,
+       arg("Note"),
+       "Desc" );
+
+    message( "Note added to " + e.title );
+}
+
 /*
 function OrMultiSelectFields( e, dest, src )
 {
