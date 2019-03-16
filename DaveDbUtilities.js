@@ -172,6 +172,24 @@ function AddNoteToCurrentEntry()
     message( "Note added to " + e.title );
 }
 
+function AddNoteEntryToEntry(
+    e, fieldname, text, ts )
+{
+    var o = {}, oe, notes;
+
+    o.Note = text;
+    if ( ts )
+        o.Timestamp = ts.getTime();
+    else
+        o.Timestamp = new Date().getTime();
+
+    oe = libByName("Note Entries").create( o );
+
+    notes = e.field(fieldname);
+    notes.push( oe );
+    e.set(fieldname, notes );
+}
+
 /*
 function OrMultiSelectFields( e, dest, src )
 {
