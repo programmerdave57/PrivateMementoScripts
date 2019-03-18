@@ -155,18 +155,23 @@ function AddTsNoteToCurrentEntry()
     message( "Note added to " + e.title );
 }
 
-function AddNoteToCurrentEntry()
+function AddNoteToCurrentEntry(onote)
 {
-    var e;
+    var e, note;
     
     // for convenience...
     // uses all standard names...
+    
+    if ( onote )
+        note = onote;
+    else
+        note = arg("Note");
     
     e = FindCurrentEntry( lib() );
 
     AddNoteToField(
        e,
-       arg("Note"),
+       note,
        "Desc" );
 
     message( "Note added to " + e.title );
