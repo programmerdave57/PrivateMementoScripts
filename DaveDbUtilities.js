@@ -195,6 +195,34 @@ function AddNoteEntryToEntry(
     e.set(fieldname, notes );
 }
 
+function FormatTimeIndex( ti )
+{
+    var ret = "";
+    var tistr, part;
+    var sanity = 5;
+
+    if ( ti != null )
+        tistr = "" + ti; // passed, but may be "0"...
+    else
+        tistr = "";
+
+    while ( tistr )
+    {
+        part = tistr.substr( -2 );
+        if ( ret )
+            ret = ":" + ret;
+        ret = part + ret;
+
+        tistr = tistr.substr( 0, tistr.length-2 );
+
+        sanity--;
+        if ( ! sanity )
+            break;
+    }
+
+    return ret;
+}
+
 /*
 function OrMultiSelectFields( e, dest, src )
 {
