@@ -139,6 +139,16 @@ function FindCurrentEntry( lib )
     return e;
 }
 
+function ShowCurrentEntry( lib )
+{
+    var e;
+    
+    if ( ! lib )
+        lib = lib();
+    e = FindCurrentEntry( lib );
+    e.show();
+}
+
 function AddTsNoteToCurrentEntry()
 {
     var when, e;
