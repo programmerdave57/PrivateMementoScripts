@@ -107,6 +107,12 @@ function ReadCurrentIdFromFile( lib )
 
 function WriteCurrentIdToFile( e, lib )
 {
+    RememberCurrentEntry( e, lib );
+    message( "Deprecated function call: WriteCurrentIdToFile()" );
+}
+
+function RememberCurrentEntry( e, lib )
+{
     var fname, id, f;
     
     if ( ! lib )
