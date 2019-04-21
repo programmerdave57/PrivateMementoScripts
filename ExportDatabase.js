@@ -21,6 +21,7 @@ const SCRIPTVER = 3;
 
 // only formatting changes made is this version only..
 // converted tabs to spaces because of Quoda...
+// 2019-04-21 adding summary file and copy of LibraryNames.txt
 
 function davelog( msg )
 {
@@ -301,11 +302,14 @@ function processLib( outdir, libname )
 
   //davelog(JSON.stringify(libdata));
   //saveLib( outdir, libdata, schema );
+  
+  return count;
 }
 
 function DaveExportDatabase_main()
 {
   var libnames, i, count;
+  var totalcount = 0;
   //var outdir = MEMENTODIR + "/Dave/Export/latest"; // + getTimestamp();
   var outdir = MEMENTODIR + "/Dave/Export/" + formatYYYYMMDD(new Date());
   outdir = MEMENTODIR + "/Dave/Export/latest";
@@ -318,8 +322,12 @@ function DaveExportDatabase_main()
 
   for (i=0; i<count; i++)
   {
-    processLib( outdir, libnames[i] );
+  	  totalcount +=
+      processLib( outdir,
+                  libnames[i] );
   }
+  
+  davelog( "Total entries:" + totalcount );
 }
 
 //DaveExportDatabase_main();
