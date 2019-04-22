@@ -26,5 +26,5 @@ function updateWellnessScore( e )
 
     //score += 2; // max 48 becomes 50 ...
     //score *= 2; // for 4 .. 100 for the day ...
-    e.set( "Score", score );
+    e.set( "Wellness Score", score );
 }
