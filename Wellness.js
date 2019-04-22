@@ -28,3 +28,24 @@ function updateWellnessScore( e )
     //score *= 2; // for 4 .. 100 for the day ...
     e.set( "Wellness Score", score );
 }
+
+function updateWellnessMarker( e )
+{
+  var score = e.field( "Wellness Score" );
+  var marker;
+  
+  if ( score > 55 )
+    marker = "Green";
+  else if ( score > 40 )
+    marker = "Yellow";
+  else
+    marker = "Red";
+    
+  e.set( "marker", marker );
+}
+
+function updateWellnessIndicators( e )
+{
+  updateWellnessScore( e );
+  updateWellnessMarker( e );
+}
