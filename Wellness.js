@@ -34,9 +34,9 @@ function updateWellnessMarker( e )
   var score = e.field( "Wellness Score" );
   var marker;
   
-  if ( score > 55 )
+  if ( score >= 55 )
     marker = "Green";
-  else if ( score > 40 )
+  else if ( score >= 40 )
     marker = "Yellow";
   else
     marker = "Red";
@@ -49,3 +49,17 @@ function updateWellnessIndicators( e )
   updateWellnessScore( e );
   updateWellnessMarker( e );
 }
+
+// -----------------------------
+
+// unified day view contains all
+// entries from the following
+// libraries for that date...
+// • Events
+//     ○ Mom Care entries
+//     ○ entries with her linked
+//     ○ Prepared Recipe entries
+// • Mom Activities
+// • Food Diary
+// • Health Log
+// • Viewings
