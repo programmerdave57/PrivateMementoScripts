@@ -5,7 +5,7 @@ function updateWellnessScore( e )
     var categories = [
                 "Wellness",
                 "Energy Level",
-                "Physical Activity",
+                "Activity Level",
                 "Cognition" ];
     var categorycount = categories.length;
     var bucketcount = 4;
