@@ -274,7 +274,7 @@ function combineDateTime( date, time )
 
 function getTimeDifference( start_date, start_time, end_date, end_time )
 {
-    var start, end, h, m, s;
+    var start, end, sec_start, sec_end;
     var seconds = 0;
 
     if ( ! end_date )
@@ -283,9 +283,11 @@ function getTimeDifference( start_date, start_time, end_date, end_time )
     start = combineDateTime( start_date, start_time );
     end   = combineDateTime( end_date, end_time );
 
-    seconds = end.getTime() - start.getTime();
-    if ( seconds < 0 )
-        seconds += 60*60*24; // end time is after midnight...
+    sec_start = start.getTime();
+    sec_end   = end.getTime();
+    if ( sec_start > sec_end )
+        sec_end += 60*60*24;
+    seconds = sec_end - sec_start;
 
     return seconds;
 }
