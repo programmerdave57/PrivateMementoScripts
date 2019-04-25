@@ -263,7 +263,7 @@ function combineDateTime( date, time )
     else
     {
         retdate = date;
-        retdate.setHour( time.getHour() )
+        retdate.setHours( time.getHours() )
         retdate.setMinutes( time.getMinutes() );
         retdate.setSeconds( time.getSeconds() );
         retdate.setMilliseconds( time.getMilliseconds() );
