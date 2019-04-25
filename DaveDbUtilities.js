@@ -245,3 +245,66 @@ function OrMultiSelectFields( e, dest, src )
     
 }
 */
+
+// **********************************
+// time routines...
+// **********************************
+
+function combineDateTime( date, time )
+{
+    var retdate, h, m, s;
+
+    // currently this requires a date value...
+
+    if ( ! time )
+    {
+        retdate = date;
+    }
+    else
+    {
+        retdate = date;
+        retdate.setHour( time.getHour() )
+        retdate.setMinutes( time.getMinutes() );
+        retdate.setSeconds( time.getSeconds() );
+        retdate.setMilliseconds( time.getMilliseconds() );
+    }
+
+    return retdate;
+}
+
+function getTimeDifference( start_date, start_time, end_date, end_time )
+{
+    var start, end, h, m, s;
+    var seconds = 0;
+
+    if ( ! end_date )
+        end_date = start_date;
+
+    start = combineDateTime( start_date, start_time );
+    end   = combineDateTime( end_date, end_time );
+
+    seconds = end.getTime() - start.getTime();
+    if ( seconds < 0 )
+        seconds += 60*60*24; // end time is after midnight...
+
+    return seconds;
+}
+
+function getTimeDifferenceFromFields( e, field_start_date, field_start_time, field_end_date, field_end_time )
+{
+    var start_date, start_time, end_date, end_time;
+    var seconds;
+
+    if ( field_start_date )
+        start_date = e.field(field_start_date);
+    if ( field_start_time )
+        start_time = e.field(field_start_time);
+    if ( field_end_date )
+        end_date = e.field(field_end_date);
+    if ( field_end_time )
+        end_time = e.field(field_end_time);
+
+    seconds = getTimeDifference( start_date, start_time, end_date, end_time );
+
+    return seconds;
+}
