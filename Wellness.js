@@ -6,6 +6,7 @@ function updateWellnessScore( e )
                 "Wellness",
                 "Energy Level",
                 "Activity Level",
+                "Outlook",
                 "Cognition" ];
     var categorycount = categories.length;
     var bucketcount = 4;
@@ -14,7 +15,7 @@ function updateWellnessScore( e )
     score = 0;
     for ( b=1; b<=bucketcount; b++ )
     {
-        score += 2 + 2; // 2 future categories...
+        score += 2; // + 2; // 2 future categories...
 
         for ( c=0; c<categorycount; c++ )
         {
