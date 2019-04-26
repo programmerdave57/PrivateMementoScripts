@@ -283,8 +283,8 @@ function getTimeDifference( start_date, start_time, end_date, end_time )
     start = combineDateTime( start_date, start_time );
     end   = combineDateTime( end_date, end_time );
 
-    sec_start = start.getTime();
-    sec_end   = end.getTime();
+    sec_start = start.getTime() / 1000;
+    sec_end   = end.getTime() / 1000;
     if ( sec_start > sec_end )
         sec_end += 60*60*24;
     seconds = sec_end - sec_start;
