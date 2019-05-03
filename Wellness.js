@@ -35,7 +35,7 @@ function updateWellnessMarker( e )
   var score = e.field( "Wellness Score" );
   var marker;
   
-  if ( score >= 55 )
+  if ( score >= 50 )
     marker = "Green";
   else if ( score >= 40 )
     marker = "Yellow";
