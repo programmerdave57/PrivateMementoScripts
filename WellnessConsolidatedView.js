@@ -92,7 +92,7 @@ function addWellnessSectionToSequencer( date, text )
 {
   var time, collisioncounter = 0, keybase, key;
 
-  time = date.getTime()/1000; // seconds...
+  time = Math.floor(date.getTime()/1000); // seconds...
   keybase = "T" + ("0000000000000000" + time).substr( -16 ) + ".";
   
   for ( collisioncounter=0; collisioncounter<100; collisioncounter++ )
