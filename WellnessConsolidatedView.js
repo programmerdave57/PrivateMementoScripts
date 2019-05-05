@@ -116,6 +116,7 @@ function getAllHTML()
   count = keys.length;
   for ( i=0; i<count; i++ )
   {
+message( keys[i] );
     html += SectionSequencer[keys[i]];
   }
 
@@ -530,7 +531,7 @@ function processActivityEntries( we )
   var html;
   var date, time, datetime;
 
-  // get intake entries that link to this wellness entry...
+  // get activity entries that link to this wellness entry...
   if ( RunningOnPhone )
   {
     entries = libByName("Mom Activities").linksTo( we );
@@ -548,7 +549,7 @@ function processActivityEntries( we )
     date = getField( e, "Date" );
     time = getField( e, "Time" );
     datetime = combineDateTime( date, time );
-    datetime = date;
+    //datetime = date;
     
     values["Activities"] = getField( e, "Activities" ).join( ", " );
     html = templateProcessTemplate( "activity", e, values );
