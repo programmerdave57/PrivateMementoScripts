@@ -548,6 +548,7 @@ function processActivityEntries( we )
     date = getField( e, "Date" );
     time = getField( e, "Time" );
     datetime = combineDateTime( date, time );
+    datetime = date;
     
     values["Activities"] = getField( e, "Activities" ).join( ", " );
     html = templateProcessTemplate( "activity", e, values );
