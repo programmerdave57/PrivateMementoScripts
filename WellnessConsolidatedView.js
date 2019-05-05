@@ -95,6 +95,36 @@ function debugmsg( msg )
 
 
 // ---------------------------------
+// Routines from other files...
+// ---------------------------------
+
+if ( ! RunningOnPhone )
+{
+  combineDateTime = function ( date, time )
+     {
+        var retdate, h, m, s;
+
+        // currently this requires a date value...
+
+        if ( ! time )
+        {
+            retdate = date;
+        }
+        else
+        {
+            retdate = date;
+            retdate.setHours( time.getHours() )
+            retdate.setMinutes( time.getMinutes() );
+            retdate.setSeconds( time.getSeconds() );
+            retdate.setMilliseconds( time.getMilliseconds() );
+        }
+
+        return retdate;
+     }
+}
+
+
+// ---------------------------------
 // SECTION SEQUENCER...
 // ---------------------------------
 
@@ -186,6 +216,24 @@ function formatDuration( min )
   return duration;
 }
 
+function paragraphizeText( text )
+{
+  var html = "";
+  var lines, line, count, i;
+  var trimtext;
+
+  trimtext = text.replace( /\n+$/, "" );
+  lines = trimtext.split( /\n/ );
+  count = lines.length;
+  for ( i=0; i<count; i++ )
+  {
+    line = lines[i];
+    html += "<P>" + line + "</P>";
+  }
+
+  return html;
+}
+
 function saveWellnessEntryContent( iconclass, date, content )
 {
   var entryvalues;
@@ -215,7 +263,8 @@ function prepareCSS()
   }
   else
   {
-    text = fs.readFileSync( "wellness.css", "utf-8" );
+    text = fs.readFileSync( "app/MomWellness/wellness.css", "utf-8" );
+    text = text.replace( /file:\/\/\/sdcard\/memento\/Dave\//g, "" );
   }
 
   addWellnessSectionToSequencer( new Date(1900, 01, 01), text );
@@ -521,6 +570,13 @@ function processActivityEntries( we )
   
   var entriesfake = // these are database entries...
       [
+        {
+          "Date": new Date( 2019, 04, 01, 00, 00, 00 ),
+          "Time": new Date( 2019, 04, 01, 09, 50, 00 ),
+          "Activities": [ "Use Commode", "Walk" ],
+          "Duration": null,
+          "Notes": "She walked and stood nicely at the commode.",
+        },
       ];
 
   var entries; // array of entries returned by the database...
@@ -571,6 +627,12 @@ function processHealthEntries( we )
   
   var entriesfake = // these are database entries...
       [
+        {
+          "Date": new Date( 2019, 04, 01, 10, 00, 00 ),
+          Type: "BP",
+          Data:   "120/70",
+          Desc:   "She felt a bit light-headed upon waking up, but her blood pressure was good.",
+        },
       ];
 
   var entries; // array of entries returned by the database...
@@ -601,6 +663,91 @@ function processHealthEntries( we )
   }
 }
 
+function processNotes( we )
+{
+  // pass Wellness entry...
+  
+  var text, lines, line, note, date;
+  var y, mo, d, h, mi, s, ampm;
+  var matches;
+  var count, i;
+  var values = {};
+  var html;
+
+  if ( RunningOnPhone )
+  {
+    text = getField( we, "Notes" );
+    date = getField( we, "Date Entered" );
+  }
+  else
+  {
+    text = fs.readFileSync("app/MomWellness/testnotes.txt", "utf-8" );
+    date = new Date( 2019, 04, 01, 09, 00, 00 );
+  }
+
+  lines = text.split( /\r{0,1}\n/ );
+  count = lines.length;
+  
+  note = "";
+  for ( i=0; i<count; i++ )
+  {
+    line = lines[i];
+    matches = line.match( /(\w\w\w) (\d\d\d\d)-(\d\d)-(\d\d) (\d{1,2}):(\d\d) ([ap]m)/ );
+
+    if ( matches )
+    {
+      //console.log( "PARSED TIMESTAMP LINE SUCCESSFULLY" );
+      //console.log( matches.join("\n") );
+
+      // got a new date, so spit out the current note...
+      if ( note )
+      {
+        values["Notes"] = paragraphizeText(note);
+        html = templateProcessTemplate( "notes", null, values );
+        saveWellnessEntryContent( "note", date, html );
+      }
+
+      y  = parseInt(matches[2]);
+      mo = parseInt(matches[3]) - 1;
+      d  = parseInt(matches[4]);
+      h  = parseInt(matches[5]);
+      mi = parseInt(matches[6]);
+      s  = 0;
+      ampm = matches[7];
+
+      if ( ampm == "am" )
+      {
+        if ( h == 12 )
+          h = 0;
+      }
+      else
+      {
+        if ( h < 12 )
+          h += 12;
+      }
+      
+      date = new Date( y, mo, d, h, mi, s );
+      //console.log( "SETTING DATE TO " + date.toString() );
+      
+      //note = "TEMP " + line + "<BR>";
+      note = "";
+    }
+    else // line is not a timestamp line...
+    {
+      if ( note )
+        note += "\n";
+      note += line;
+    }
+  } // end for each line
+
+  if ( note )
+  {
+    values["Notes"] = paragraphizeText(note);
+    html = templateProcessTemplate( "notes", null, values );
+    saveWellnessEntryContent( "note", date, html );
+  }
+}
+
 
 // ---------------------------------
 // MAIN...
@@ -614,6 +761,7 @@ function updateWellnessConsolidatedView( we )
   processActivityEntries( we );
   processIntakeEntries( we );
   processHealthEntries( we );
+  processNotes( we );
 
   html = getAllHTML();
 
