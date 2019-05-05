@@ -64,7 +64,7 @@ var Templates = {
     template: "{?template:intake_food}{?template:intake_amount}{?template:intake_fluids}{?template:desc}",
   },
   
-  avtivity: {
+  activity: {
     template: "<div><span class=mainline>{?field:Activities}</span></div>{?template:notes}",
   },
 };
@@ -515,7 +515,7 @@ function processActivityEntries( we )
           "Size": "4 oz",
           "Amount": "",
           "Fluid Ounces": 2.5 },
-        { "Date": new Date( 2019, 04, 01, 14, 27, 03 ),
+        { "Date": new Date( 2019, 04, 01, 14, 27, 03 ),0
           "Desc": "That was all she wanted.",
           "Food": "Soup, chicken rice, Campbell's",
           "Size": "6 oz",
