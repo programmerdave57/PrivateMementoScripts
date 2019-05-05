@@ -37,7 +37,13 @@ var Templates = {
     fieldname: "Notes",
     condition: TEMPLATE_CONDITION_NOT_BLANK,
   },
-  
+
+  duration: {
+    template: "<div>{?field:*}</div>",
+    fieldname: "Duration",
+    condition: TEMPLATE_CONDITION_NOT_NULL,
+  },
+    
   intake_size: {
     template: " - {?field:*}",
     fieldname: "Size",
@@ -65,7 +71,7 @@ var Templates = {
   },
   
   activity: {
-    template: "<div><span class=mainline>{?field:Activities}</span></div>{?template:notes}",
+    template: "<div><span class=mainline>{?field:Activities}</span></div>{?template:duration}{?template:notes}",
   },
   
   healthlog: {
@@ -163,6 +169,21 @@ function wellnessFormatTimestamp( date )
         ampm;
 
   return ts;
+}
+
+function formatDuration( min )
+{
+  var h, m, duration = "";
+  
+  h = Math.floor( min / 60 );
+  m = min % 60;
+  
+  if ( h )
+    duration = "" + h + " hours, ";
+  
+  duration += "" + m + " minutes";
+  
+  return duration;
 }
 
 function saveWellnessEntryContent( iconclass, date, content )
@@ -507,6 +528,7 @@ function processActivityEntries( we )
   var values = {};
   var html;
   var date, time, datetime;
+  var min, duration;
 
   // get activity entries that link to this wellness entry...
   if ( RunningOnPhone )
@@ -529,6 +551,16 @@ function processActivityEntries( we )
     //datetime = date;
     
     values["Activities"] = getField( e, "Activities" ).join( ", " );
+    
+    min = getField("Duration");
+    if ( min )
+      duration = formatDuration( min );
+    else
+      duration = null;
+    
+    values["Duration"] = duration;
+    
+    
     html = templateProcessTemplate( "activity", e, values );
     saveWellnessEntryContent( "activity", datetime, html );
   }
