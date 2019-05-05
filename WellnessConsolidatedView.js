@@ -116,8 +116,8 @@ function getAllHTML()
   count = keys.length;
   for ( i=0; i<count; i++ )
   {
-//message( keys[i] );
-    html += "<div>" + keys[i] + "</div>" + SectionSequencer[keys[i]];
+    //html += "<div>" + keys[i] + "</div>";
+    html += SectionSequencer[keys[i]];
   }
 
   return html;
