@@ -547,7 +547,7 @@ function processIntakeEntries( we )
   var html;
   var date;
 
-  informUser( "Processing Intake..." );
+  //informUser( "Processing Intake..." );
 
   // get intake entries that link to this wellness entry...
   if ( RunningOnPhone )
@@ -598,7 +598,7 @@ function processActivityEntries( we )
   var date, time, datetime;
   var min, duration;
 
-  informUser( "Processing Activities..." );
+  //informUser( "Processing Activities..." );
 
   // get activity entries that link to this wellness entry...
   if ( RunningOnPhone )
@@ -655,7 +655,7 @@ function processHealthEntries( we )
   var html;
   var date, time, datetime;
 
-  informUser( "Processing Health Log..." );
+  //informUser( "Processing Health Log..." );
 
   // get heslth log entries that link to this wellness entry...
   if ( RunningOnPhone )
@@ -690,7 +690,7 @@ function processNotes( we )
   var values = {};
   var html;
 
-  informUser( "Processing Notes..." );
+  //informUser( "Processing Notes..." );
 
   if ( RunningOnPhone )
   {
@@ -744,10 +744,11 @@ function processNotes( we )
           h += 12;
       }
 
-      console.log( "MINUTE: " + matches[6] + " |" + mi + "|" );
       
       date = new Date( y, mo, d, h, mi, s );
-      console.log( "SETTING DATE TO " + date.toString() );
+
+      informUser( "MINUTE: " + matches[6] + " |" + mi + "|\n" +
+                    "SETTING DATE TO " + date.toString() );
       
       //note = "TEMP " + line + "<BR>";
       note = "";
@@ -783,7 +784,7 @@ function updateWellnessConsolidatedView( we )
   processHealthEntries( we );
   processNotes( we );
 
-  informUser( "Finishing..." );
+  //informUser( "Finishing..." );
   html = getAllHTML();
 
   if ( RunningOnPhone )
