@@ -747,8 +747,11 @@ function processNotes( we )
       
       date = new Date( y, mo, d, h, mi, s );
 
-      informUser( "MINUTE: " + matches[6] + " |" + mi + "|\n" +
-                    "SETTING DATE TO " + date.toString() );
+      if ( isNaN(mi) )
+      {
+        informUser( "MINUTE: " + matches[6] + " |" + mi + "|\n" +
+                      "SETTING DATE TO " + date.toString() );
+      }
       
       //note = "TEMP " + line + "<BR>";
       note = "";
