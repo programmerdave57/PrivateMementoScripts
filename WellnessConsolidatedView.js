@@ -67,6 +67,10 @@ var Templates = {
   activity: {
     template: "<div><span class=mainline>{?field:Activities}</span></div>{?template:notes}",
   },
+  
+  healthlog: {
+    template: "<div><span class=mainline>{?field:Type} - {?field:Data}</span></div>{?template:desc}",
+  },
 };
 
 // key "T999999999.888" ...
@@ -490,39 +494,12 @@ function processIntakeEntries( we )
   }
 }
 
-
 function processActivityEntries( we )
 {
   // pass Wellness entry...
   
   var entriesfake = // these are database entries...
       [
-      /****
-        { "Date": new Date( 2019, 04, 01, 10, 05, 00 ),
-          "Desc": "Mom ate the whole thing.",
-          "Food": "Eggs, scrambled (2)",
-          "Size": "",
-          "Amount": "All",
-          "Fluid Ounces": null },
-        { "Date": new Date( 2019, 04, 01, 10, 05, 00 ),
-          "Desc": "",
-          "Food": "Toast with butter",
-          "Size": "Made with the large size bread",
-          "Amount": "Three quarters",
-          "Fluid Ounces": null },
-        { "Date": new Date( 2019, 04, 01, 10, 00, 02 ),
-          "Desc": "This was all she could drink.",
-          "Food": "Juice, orange",
-          "Size": "4 oz",
-          "Amount": "",
-          "Fluid Ounces": 2.5 },
-        { "Date": new Date( 2019, 04, 01, 14, 27, 03 ),0
-          "Desc": "That was all she wanted.",
-          "Food": "Soup, chicken rice, Campbell's",
-          "Size": "6 oz",
-          "Amount": "Half",
-          "Fluid Ounces": 3 },
-      ****/
       ];
 
   var entries; // array of entries returned by the database...
@@ -557,6 +534,42 @@ function processActivityEntries( we )
   }
 }
 
+function processHealthEntries( we )
+{
+  // pass Wellness entry...
+  
+  var entriesfake = // these are database entries...
+      [
+      ];
+
+  var entries; // array of entries returned by the database...
+  var e, count, i;
+  var values = {};
+  var html;
+  var date, time, datetime;
+
+  // get heslth log entries that link to this wellness entry...
+  if ( RunningOnPhone )
+  {
+    entries = libByName("Mom Health Log").linksTo( we );
+  }
+  else
+  {
+    entries = entriesfake;
+  }
+  
+  // process entries...
+  count = entries.length;
+  for ( i=0; i<count; i++ )
+  {
+    e = entries[i];
+    date = getField( e, "Date" );
+    
+    html = templateProcessTemplate( "healthlog", e, values );
+    saveWellnessEntryContent( "healthlog", date, html );
+  }
+}
+
 
 // ---------------------------------
 // MAIN...
@@ -569,6 +582,7 @@ function updateWellnessConsolidatedView( we )
   prepareCSS();
   processActivityEntries( we );
   processIntakeEntries( we );
+  processHealthEntries( we );
 
   html = getAllHTML();
 
