@@ -744,10 +744,10 @@ function processNotes( we )
           h += 12;
       }
 
-      //console.log( "MINUTE: " + matches[6] + " |" + mi + "|" );
+      console.log( "MINUTE: " + matches[6] + " |" + mi + "|" );
       
       date = new Date( y, mo, d, h, mi, s );
-      //console.log( "SETTING DATE TO " + date.toString() );
+      console.log( "SETTING DATE TO " + date.toString() );
       
       //note = "TEMP " + line + "<BR>";
       note = "";
