@@ -566,8 +566,8 @@ function updateWellnessConsolidatedView( we )
   var html;
 
   prepareCSS();
-  processIntakeEntries( we );
   processActivityEntries( we );
+  processIntakeEntries( we );
 
   html = getAllHTML();
 
