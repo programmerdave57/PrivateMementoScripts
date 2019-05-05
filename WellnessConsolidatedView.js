@@ -39,7 +39,7 @@ var Templates = {
   },
 
   duration: {
-    template: "<div>{?field:*}</div>",
+    template: "<div>Duration: {?field:*}</div>",
     fieldname: "Duration",
     condition: TEMPLATE_CONDITION_NOT_NULL,
   },
