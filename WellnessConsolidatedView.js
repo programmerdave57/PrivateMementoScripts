@@ -552,14 +552,13 @@ function processActivityEntries( we )
     
     values["Activities"] = getField( e, "Activities" ).join( ", " );
     
-    min = getField("Duration");
+    min = getField( e, "Duration");
     if ( min )
       duration = formatDuration( min );
     else
       duration = null;
     
     values["Duration"] = duration;
-    
     
     html = templateProcessTemplate( "activity", e, values );
     saveWellnessEntryContent( "activity", datetime, html );
