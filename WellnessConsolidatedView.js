@@ -450,7 +450,7 @@ function processIntakeEntries( we )
   var e, count, i;
   var values = {};
   var html;
-
+  var date;
 
   // get intake entries that link to this wellness entry...
   if ( RunningOnPhone )
@@ -473,8 +473,9 @@ function processIntakeEntries( we )
     debugmsg( "*************************************************" );
     debugmsg( "ENTRY: " + e["Food"] );
 
+    date = getField( e, "Date" );
     html = templateProcessTemplate( "intake", e, values );
-    saveWellnessEntryContent( "intake", e["Date"], html );
+    saveWellnessEntryContent( "intake", date, html );
   }
 }
 
