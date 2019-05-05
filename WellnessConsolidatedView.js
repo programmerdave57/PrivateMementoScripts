@@ -1,6 +1,6 @@
 // WellnessConsolidatedView.js
 
-var RunningOnPhone = false;
+var RunningOnPhone = true;
 
 if ( ! RunningOnPhone )
 {
