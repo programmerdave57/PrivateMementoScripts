@@ -743,6 +743,8 @@ function processNotes( we )
         if ( h < 12 )
           h += 12;
       }
+
+      //console.log( "MINUTE: " + matches[6] + " |" + mi + "|" );
       
       date = new Date( y, mo, d, h, mi, s );
       //console.log( "SETTING DATE TO " + date.toString() );
