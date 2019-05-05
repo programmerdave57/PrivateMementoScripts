@@ -26,12 +26,18 @@ var Templates = {
     template: "<div class=entry><div class=entryheading><span class=\"icon {?field:iconclass}\"></span><span class=timestamp>{?field:ts}</span></div>{?field:content}</div>",
   },
 
-  note: {
+  desc: {
     template: "<div class=notetext>{?field:*}</div>",
     fieldname: "Desc",
     condition: TEMPLATE_CONDITION_NOT_BLANK,
   },
 
+  notes: {
+    template: "<div class=notetext>{?field:*}</div>",
+    fieldname: "Notes",
+    condition: TEMPLATE_CONDITION_NOT_BLANK,
+  },
+  
   intake_size: {
     template: " - {?field:*}",
     fieldname: "Size",
@@ -55,7 +61,11 @@ var Templates = {
   },
 
   intake: {
-    template: "{?template:intake_food}{?template:intake_amount}{?template:intake_fluids}{?template:note}",
+    template: "{?template:intake_food}{?template:intake_amount}{?template:intake_fluids}{?template:desc}",
+  },
+  
+  avtivity: {
+    template: "<div><span class=mainline>{?field:Activities}</span></div>{?template:notes}",
   },
 };
 
@@ -480,6 +490,71 @@ function processIntakeEntries( we )
 }
 
 
+function processActivityEntries( we )
+{
+  // pass Wellness entry...
+  
+  var entriesfake = // these are database entries...
+      [
+      /****
+        { "Date": new Date( 2019, 04, 01, 10, 05, 00 ),
+          "Desc": "Mom ate the whole thing.",
+          "Food": "Eggs, scrambled (2)",
+          "Size": "",
+          "Amount": "All",
+          "Fluid Ounces": null },
+        { "Date": new Date( 2019, 04, 01, 10, 05, 00 ),
+          "Desc": "",
+          "Food": "Toast with butter",
+          "Size": "Made with the large size bread",
+          "Amount": "Three quarters",
+          "Fluid Ounces": null },
+        { "Date": new Date( 2019, 04, 01, 10, 00, 02 ),
+          "Desc": "This was all she could drink.",
+          "Food": "Juice, orange",
+          "Size": "4 oz",
+          "Amount": "",
+          "Fluid Ounces": 2.5 },
+        { "Date": new Date( 2019, 04, 01, 14, 27, 03 ),
+          "Desc": "That was all she wanted.",
+          "Food": "Soup, chicken rice, Campbell's",
+          "Size": "6 oz",
+          "Amount": "Half",
+          "Fluid Ounces": 3 },
+      ****/
+      ];
+
+  var entries; // array of entries returned by the database...
+  var e, count, i;
+  var values = {};
+  var html;
+  var date, time, datetime;
+
+  // get intake entries that link to this wellness entry...
+  if ( RunningOnPhone )
+  {
+    entries = libByName("Mom Activities").linksTo( we );
+  }
+  else
+  {
+    entries = entriesfake;
+  }
+  
+  // process entries...
+  count = entries.length;
+  for ( i=0; i<count; i++ )
+  {
+    e = entries[i];
+    date = getField( e, "Date" );
+    time = getField( e, "Time" );
+    datetime = combineDateTime( date, time );
+    
+    values["Activities"] = getField( e, "Activities" ).join( ", " );
+    html = templateProcessTemplate( "activity", e, values );
+    saveWellnessEntryContent( "activity", datetime, html );
+  }
+}
+
 
 // ---------------------------------
 // MAIN...
@@ -491,6 +566,7 @@ function updateWellnessConsolidatedView( we )
 
   prepareCSS();
   processIntakeEntries( we );
+  processActivityEntries( we );
 
   html = getAllHTML();
 
@@ -511,4 +587,3 @@ if ( ! RunningOnPhone )
 
 // this goes in the script on the phone...
 //updateWellnessConsolidatedView( entry() );
-
