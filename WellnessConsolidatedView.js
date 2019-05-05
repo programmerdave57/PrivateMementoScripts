@@ -1,6 +1,6 @@
 // WellnessConsolidatedView.js
 
-var RunningOnPhone = true;
+var RunningOnPhone = false;
 
 if ( ! RunningOnPhone )
 {
@@ -91,6 +91,12 @@ var SectionSequencer = {};
 function debugmsg( msg )
 {
 	//console.log( msg );
+}
+
+function informUser( msg )
+{
+  if ( RunningOnPhone )
+    message( msg );
 }
 
 
@@ -228,7 +234,11 @@ function paragraphizeText( text )
   for ( i=0; i<count; i++ )
   {
     line = lines[i];
-    html += "<P>" + line + "</P>";
+    if ( i == (count-1) )
+      html += "<P class=last>";
+    else
+      html += "<P>";
+    html += line + "</P>";
   }
 
   return html;
@@ -537,6 +547,8 @@ function processIntakeEntries( we )
   var html;
   var date;
 
+  informUser( "Processing Intake..." );
+
   // get intake entries that link to this wellness entry...
   if ( RunningOnPhone )
   {
@@ -585,6 +597,8 @@ function processActivityEntries( we )
   var html;
   var date, time, datetime;
   var min, duration;
+
+  informUser( "Processing Activities..." );
 
   // get activity entries that link to this wellness entry...
   if ( RunningOnPhone )
@@ -641,6 +655,8 @@ function processHealthEntries( we )
   var html;
   var date, time, datetime;
 
+  informUser( "Processing Health Log..." );
+
   // get heslth log entries that link to this wellness entry...
   if ( RunningOnPhone )
   {
@@ -674,9 +690,11 @@ function processNotes( we )
   var values = {};
   var html;
 
+  informUser( "Processing Notes..." );
+
   if ( RunningOnPhone )
   {
-    text = getField( we, "Notes" );
+    text = getField( we, "Desc" );
     date = getField( we, "Date Entered" );
   }
   else
@@ -702,8 +720,8 @@ function processNotes( we )
       // got a new date, so spit out the current note...
       if ( note )
       {
-        values["Notes"] = paragraphizeText(note);
-        html = templateProcessTemplate( "notes", null, values );
+        values["Desc"] = paragraphizeText(note);
+        html = templateProcessTemplate( "desc", null, values );
         saveWellnessEntryContent( "note", date, html );
       }
 
@@ -743,7 +761,7 @@ function processNotes( we )
   if ( note )
   {
     values["Notes"] = paragraphizeText(note);
-    html = templateProcessTemplate( "notes", null, values );
+    html = templateProcessTemplate( "desc", null, values );
     saveWellnessEntryContent( "note", date, html );
   }
 }
@@ -763,6 +781,7 @@ function updateWellnessConsolidatedView( we )
   processHealthEntries( we );
   processNotes( we );
 
+  informUser( "Finishing..." );
   html = getAllHTML();
 
   if ( RunningOnPhone )
