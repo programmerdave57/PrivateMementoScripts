@@ -1,4 +1,4 @@
-// DaveDbUtilities.js
+-// DaveDbUtilities.js
 
 function AddNoteToField(
             e, note, fieldname )
@@ -309,4 +309,13 @@ function getTimeDifferenceFromFields( e, field_start_date, field_start_time, fie
     seconds = getTimeDifference( start_date, start_time, end_date, end_time );
 
     return seconds;
+}
+
+function areYouSure()
+{
+    if ( ! arg("Are You Sure?") )
+    {
+        message( "*** Script not run." );
+        exit();
+    }
 }
