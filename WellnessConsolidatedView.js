@@ -61,13 +61,13 @@ var Templates = {
   },
 
   intake_fluids: {
-    template: "<div class=emblazon>Fluids: {?field:*}</div>",
+    template: "<div class=emblazon>Fluids: {?field:*} ounces</div>",
     fieldname: "Fluid Ounces",
     condition: TEMPLATE_CONDITION_NOT_NULL,
   },
 
   intake_ensure: {
-    template: "<div class=embluezon>Ensure Ounces: {?field:*}</div>",
+    template: "<div class=embluezon>Ensure: {?field:*} ounces</div>",
     fieldname: "Ensure Ounces",
     condition: TEMPLATE_CONDITION_NOT_NULL,
   },
