@@ -766,7 +766,7 @@ function processNotes( we )
 
   if ( note )
   {
-    values["Notes"] = paragraphizeText(note);
+    values["Desc"] = paragraphizeText(note);
     html = templateProcessTemplate( "desc", null, values );
     saveWellnessEntryContent( "note", date, html );
   }
