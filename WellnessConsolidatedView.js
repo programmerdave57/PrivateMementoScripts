@@ -710,7 +710,7 @@ function processNotes( we )
   for ( i=0; i<count; i++ )
   {
     line = lines[i];
-    matches = line.match( /(\w\w\w) (\d\d\d\d)-(\d\d)-(\d\d) (\d{1,2}):(\d\d) ([ap]m)/ );
+    matches = line.match( /(\w\w\w) (\d\d\d\d)-(\d\d)-(\d\d) (\d{1,2})\:(\d\d) ([ap]m)/ );
 
     if ( matches )
     {
@@ -729,7 +729,7 @@ function processNotes( we )
       mo = parseInt(matches[3]) - 1;
       d  = parseInt(matches[4]);
       h  = parseInt(matches[5]);
-      mi = parseInt(matches[6]);
+      mi = 0 + matches[6]; // parseInt(matches[6]);
       s  = 0;
       ampm = matches[7];
 
