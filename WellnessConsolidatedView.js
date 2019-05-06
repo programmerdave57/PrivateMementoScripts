@@ -791,6 +791,7 @@ function updateWellnessConsolidatedView( we )
 {
   var html;
 
+  SectionSequencer = {};
   prepareCSS();
   processActivityEntries( we );
   processIntakeEntries( we );
