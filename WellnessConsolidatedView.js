@@ -66,8 +66,14 @@ var Templates = {
     condition: TEMPLATE_CONDITION_NOT_NULL,
   },
 
+  intake_ensure: {
+    template: "<div class=embluezon>Ensure Ounces: {?field:*}</div>",
+    fieldname: "Ensure Ounces",
+    condition: TEMPLATE_CONDITION_NOT_NULL,
+  },
+  
   intake: {
-    template: "{?template:intake_food}{?template:intake_amount}{?template:intake_fluids}{?template:desc}",
+    template: "{?template:intake_food}{?template:intake_amount}{?template:intake_fluids}{?template:intake_ensure}{?template:desc}",
   },
   
   activity: {
@@ -520,24 +526,28 @@ function processIntakeEntries( we )
           "Food": "Eggs, scrambled (2)",
           "Size": "",
           "Amount": "All",
+          "Ensure Ounces": null,
           "Fluid Ounces": null },
         { "Date": new Date( 2019, 04, 01, 10, 05, 00 ),
           "Desc": "",
           "Food": "Toast with butter",
           "Size": "Made with the large size bread",
           "Amount": "Three quarters",
+          "Ensure Ounces": null,
           "Fluid Ounces": null },
         { "Date": new Date( 2019, 04, 01, 10, 00, 02 ),
           "Desc": "This was all she could drink.",
           "Food": "Juice, orange",
           "Size": "4 oz",
           "Amount": "",
+          "Ensure Ounces": null,
           "Fluid Ounces": 2.5 },
         { "Date": new Date( 2019, 04, 01, 14, 27, 03 ),
           "Desc": "That was all she wanted.",
           "Food": "Soup, chicken rice, Campbell's",
           "Size": "6 oz",
           "Amount": "Half",
+          "Ensure Ounces": null,
           "Fluid Ounces": 3 },
       ];
 
