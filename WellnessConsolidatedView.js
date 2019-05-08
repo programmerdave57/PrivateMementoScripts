@@ -696,6 +696,7 @@ function processHealthEntries( we )
 
 function testNum( n, desc )
 {
+  return;
   if ( isNaN(n) )
     debugmsg( "NAN " + desc + ": " + n );
   else
@@ -748,11 +749,11 @@ function processNotes( we )
         saveWellnessEntryContent( "note", date, html );
       }
 
-      y  = parseInt(matches[2]);
-      mo = parseInt(matches[3]) - 1;
-      d  = parseInt(matches[4]);
-      h  = parseInt(matches[5]);
-      mi = 0 + matches[6]; // parseInt(matches[6]);
+      y  = parseInt(matches[2], 10);
+      mo = parseInt(matches[3], 10) - 1;
+      d  = parseInt(matches[4], 10);
+      h  = parseInt(matches[5], 10);
+      mi = parseInt(matches[6], 10); // parseInt(matches[6]);
       s  = 0;
       ampm = matches[7];
       
