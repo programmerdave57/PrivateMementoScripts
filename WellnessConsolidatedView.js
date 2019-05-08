@@ -822,7 +822,7 @@ function updateWellnessConsolidatedView( we )
   if ( RunningOnPhone )
   {
     we.set( "Consolidated Day View", html );
-    we.set( "debugout", Debugmsg ); //html );
+    //we.set( "debugout", Debugmsg ); //html );
   }
   else
   {
