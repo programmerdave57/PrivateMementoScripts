@@ -90,13 +90,18 @@ var Templates = {
 // 888 = 001, 002, etc., for collisions...
 // data is complete HTML text for one timestamped entry...
 var SectionSequencer = {};
+var Debugmsg = "";
 
-
-
+function wcvInitGlobals()
+{
+  SectionSequencer = {};
+  Debugmsg = "";
+}
 
 function debugmsg( msg )
 {
 	//console.log( msg );
+	Debugmsg += "\n" + msg;
 }
 
 function informUser( msg )
@@ -689,6 +694,14 @@ function processHealthEntries( we )
   }
 }
 
+function testNum( n, desc )
+{
+  if ( isNaN(n) )
+    debugmsg( "NAN " + desc + ": " + n );
+  else
+    debugmsg( " ok " + desc + ": " + n );
+}
+
 function processNotes( we )
 {
   // pass Wellness entry...
@@ -724,8 +737,8 @@ function processNotes( we )
 
     if ( matches )
     {
-      //console.log( "PARSED TIMESTAMP LINE SUCCESSFULLY" );
-      //console.log( matches.join("\n") );
+      debugmsg( "PARSED TIMESTAMP LINE SUCCESSFULLY" );
+      debugmsg( matches.join("\n") );
 
       // got a new date, so spit out the current note...
       if ( note )
@@ -742,6 +755,13 @@ function processNotes( we )
       mi = 0 + matches[6]; // parseInt(matches[6]);
       s  = 0;
       ampm = matches[7];
+      
+      testNum( y,  "y" );
+      testNum( mo, "mo" );
+      testNum( d,  "d" );
+      testNum( h,  "h" );
+      testNum( mi, "mi" );
+      testNum( s,  "s" );
 
       if ( ampm == "am" )
       {
@@ -754,13 +774,13 @@ function processNotes( we )
           h += 12;
       }
 
+      testNum( h,  "h" );
       
       date = new Date( y, mo, d, h, mi, s );
 
       if ( isNaN(mi) )
       {
-        informUser( "MINUTE: " + matches[6] + " |" + mi + "|\n" +
-                      "SETTING DATE TO " + date.toString() );
+        debugmsg( "SETTING DATE TO " + date.toString() );
       }
       
       //note = "TEMP " + line + "<BR>";
@@ -791,7 +811,7 @@ function updateWellnessConsolidatedView( we )
 {
   var html;
 
-  SectionSequencer = {};
+  wcvInitGlobals();
   prepareCSS();
   processActivityEntries( we );
   processIntakeEntries( we );
@@ -804,7 +824,7 @@ function updateWellnessConsolidatedView( we )
   if ( RunningOnPhone )
   {
     we.set( "Consolidated Day View", html );
-    we.set( "debugout", html );
+    we.set( "debugout", Debugmsg ); //html );
   }
   else
   {
