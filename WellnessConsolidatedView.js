@@ -413,12 +413,12 @@ function templateReplacePlaceholderWithValue( str, ph, value )
 
 	newstring = left + middle + right;
 
-	debugmsg( "" );
-	debugmsg( "BEFORE: " + str );
-	debugmsg( "LEFT: " + left );
-	debugmsg( "MIDDLE: " + middle );
-	debugmsg( "RIGHT: " + right );
-	debugmsg( "NEW: " + newstring );
+	//debugmsg( "" );
+	//debugmsg( "BEFORE: " + str );
+	//debugmsg( "LEFT: " + left );
+	//debugmsg( "MIDDLE: " + middle );
+	//debugmsg( "RIGHT: " + right );
+	//debugmsg( "NEW: " + newstring );
 
 	return newstring;
 }
@@ -778,10 +778,7 @@ function processNotes( we )
       
       date = new Date( y, mo, d, h, mi, s );
 
-      if ( isNaN(mi) )
-      {
-        debugmsg( "SETTING DATE TO " + date.toString() );
-      }
+      debugmsg( "SETTING DATE TO " + date.toString() );
       
       //note = "TEMP " + line + "<BR>";
       note = "";
