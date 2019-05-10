@@ -255,6 +255,37 @@ function paragraphizeText( text )
   return html;
 }
 
+function applyDaveMarkup( text )
+{
+  var ret;
+  var mstart = "<<<";
+  var mend   = ">>>";
+  var pos, endpos;
+  var left, inside, right;
+  
+  ret = text;
+  while ( -1 != (pos=ret.indexOf(mstart)) )
+  {
+    endpos = ret.indexOf(mend);
+    if ( endpos != -1 )
+    {
+      if ( endpos < pos )
+        break;
+      left = ret.substr(0, pos);
+      pos += mstart.length;
+      middle = ret.substr(pos, endpos-pos+1);
+      right = ret.substr( endpos+mend.length);
+      ret = left +
+            "<span class=highlight>" +
+            middle +
+            "</span>" +
+            right;
+    }
+  }
+  
+  return ret;
+}
+
 function saveWellnessEntryContent( iconclass, date, content )
 {
   var entryvalues;
