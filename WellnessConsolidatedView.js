@@ -274,7 +274,7 @@ function applyDaveMarkup( text )
       left = ret.substr(0, pos);
       pos += mstart.length;
       middle = ret.substr(pos, endpos-pos);
-      right = ret.substr( endpos+mend.length);
+      right = ret.substr(endpos+mend.length);
       ret = left +
             "<span class=highlight>" +
             middle +
