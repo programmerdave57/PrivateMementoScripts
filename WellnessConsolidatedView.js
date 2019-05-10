@@ -825,6 +825,7 @@ function processNotes( we )
 
   if ( note )
   {
+    note = applyDaveMarkup( note );
     values["Desc"] = paragraphizeText(note);
     html = templateProcessTemplate( "desc", null, values );
     saveWellnessEntryContent( "note", date, html );
