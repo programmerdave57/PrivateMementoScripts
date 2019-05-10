@@ -775,6 +775,7 @@ function processNotes( we )
       // got a new date, so spit out the current note...
       if ( note )
       {
+        note = applyDaveMarkup( note );
         values["Desc"] = paragraphizeText(note);
         html = templateProcessTemplate( "desc", null, values );
         saveWellnessEntryContent( "note", date, html );
@@ -854,7 +855,7 @@ function updateWellnessConsolidatedView( we )
   if ( RunningOnPhone )
   {
     we.set( "Consolidated Day View", html );
-    we.set( "debugout", html );
+    //we.set( "debugout", html );
     //we.set( "debugout", Debugmsg ); //html );
   }
   else
