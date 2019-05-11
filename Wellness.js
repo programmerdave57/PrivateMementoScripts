@@ -11,6 +11,9 @@ function updateWellnessScore( e )
     var categorycount = categories.length;
     var bucketcount = 4;
     var score, name, b, c, v;
+    
+    var prevvalues = [0,0,0,0,0];
+    var value;
 
     score = 0;
     for ( b=1; b<=bucketcount; b++ )
@@ -20,7 +23,16 @@ function updateWellnessScore( e )
         for ( c=0; c<categorycount; c++ )
         {
             name = "" + b + ". " + categories[c];
-            v = parseInt( e.field(name) );
+            value = e.field(name);
+            if ( -1 == value.indexOf("select") )
+            {
+              v = prevvalues[c];
+            }
+            else
+            {
+              v = parseInt( value, 10 );
+              prevvalues[c] = v;
+            }
             score += v;
         }
     }
