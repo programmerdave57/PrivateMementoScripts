@@ -278,20 +278,17 @@ function applyDaveMarkup( text )
     while ( -1 != (pos=ret.indexOf(mstart)) )
     {
       endpos = ret.indexOf(mend);
-      if ( endpos != -1 )
-      {
-        if ( endpos < pos )
-          break;
-        left = ret.substr(0, pos);
-        pos += mstart.length;
-        middle = ret.substr(pos, endpos-pos);
-        right = ret.substr(endpos+mend.length);
-        ret = left +
-              "<span class=" + clas + ">" +
-              middle +
-              "</span>" +
-              right;
-      } // end if balanced marker
+      if ( endpos < pos )
+        break;
+      left = ret.substr(0, pos);
+      pos += mstart.length;
+      middle = ret.substr(pos, endpos-pos);
+      right = ret.substr(endpos+mend.length);
+      ret = left +
+            "<span class=" + clas + ">" +
+            middle +
+            "</span>" +
+            right;
     } // end for each found marker
   } // end for each marker type
   
