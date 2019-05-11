@@ -258,30 +258,42 @@ function paragraphizeText( text )
 function applyDaveMarkup( text )
 {
   var ret;
-  var mstart = "<<<";
-  var mend   = ">>>";
+  var markers = [
+    { s:"<<<", e:">>>", c:"highlight3"},
+    { s:"<<", e:">>", c:"highlight2"},
+    { s:"<", e:">", c:"highlight1"},
+  ];
+  var mstart, mend, clas;
   var pos, endpos;
   var left, inside, right;
+  var mcount, m;
   
   ret = text;
-  while ( -1 != (pos=ret.indexOf(mstart)) )
+  mcount = markers.length;
+  for ( m=0; m<mcount; m++ )
   {
-    endpos = ret.indexOf(mend);
-    if ( endpos != -1 )
+    mstart = markers[m].s;
+    mend = markers[m].e;
+    clas = markers[m].c;
+    while ( -1 != (pos=ret.indexOf(mstart)) )
     {
-      if ( endpos < pos )
-        break;
-      left = ret.substr(0, pos);
-      pos += mstart.length;
-      middle = ret.substr(pos, endpos-pos);
-      right = ret.substr(endpos+mend.length);
-      ret = left +
-            "<span class=highlight>" +
-            middle +
-            "</span>" +
-            right;
-    }
-  }
+      endpos = ret.indexOf(mend);
+      if ( endpos != -1 )
+      {
+        if ( endpos < pos )
+          break;
+        left = ret.substr(0, pos);
+        pos += mstart.length;
+        middle = ret.substr(pos, endpos-pos);
+        right = ret.substr(endpos+mend.length);
+        ret = left +
+              "<span class=" + clas + ">" +
+              middle +
+              "</span>" +
+              right;
+      } // end if balanced marker
+    } // end for each found marker
+  } // end for each marker type
   
   return ret;
 }
