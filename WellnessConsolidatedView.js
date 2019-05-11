@@ -261,7 +261,7 @@ function applyDaveMarkup( text )
   var markers = [
     { s:"<<<", e:">>>", c:"highlight3"},
     { s:"<<", e:">>", c:"highlight2"},
-    { s:"<", e:">", c:"highlight1"},
+    { s:"[", e:"]", c:"highlight1"},
   ];
   var mstart, mend, clas;
   var pos, endpos;
