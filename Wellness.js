@@ -24,7 +24,7 @@ function updateWellnessScore( e )
         {
             name = "" + b + ". " + categories[c];
             value = e.field(name);
-            if ( -1 == value.indexOf("select") )
+            if ( -1 != value.indexOf("select") )
             {
               v = prevvalues[c];
             }
