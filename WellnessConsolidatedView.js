@@ -79,7 +79,7 @@ function wcvInit()
     },
     
     footer: {
-      template: "<p class=fineprint>View updated - {?field:Text}</p>",
+      template: "<p class=fineprint>View updated on {?field:Text}</p>",
     },
   };
   
