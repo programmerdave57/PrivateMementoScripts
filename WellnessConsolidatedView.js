@@ -76,6 +76,10 @@ var Templates = {
   healthlog: {
     template: "<div><span class=mainline>{?field:Type} - {?field:Data}</span></div>{?template:desc}",
   },
+  
+  footer: {
+    template: "<p class=fineprint>{?field:Text}</p>",
+  },
 };
 
 // key "T999999999.888" ...
@@ -674,9 +678,17 @@ function processNotes( we )
 // MAIN...
 // ---------------------------------
 
+function addFooter()
+{
+  var values = {};
+  
+  values["Text"] = wellnessFormatTimestamp( new Date() );
+  html = templateProcessTemplate( "footer", null, values );
+  addWellnessSectionToSequencer( new Date( 2100, 12, 31), html );
+}
+
 function updateWellnessConsolidatedView( we )
 {
-  
   var html;
 
   wcvInitGlobals();
@@ -685,6 +697,7 @@ function updateWellnessConsolidatedView( we )
   processIntakeEntries( we );
   processHealthEntries( we );
   processNotes( we );
+  addFooter();
 
   //informUser( "Finishing..." );
   html = getAllHTML();
