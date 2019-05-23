@@ -1,12 +1,5 @@
 // WellnessConsolidatedView.js
 
-var RunningOnPhone = true;
-
-if ( ! RunningOnPhone )
-{
-  var fs = require('fs');
-}
-
 // ------------------------------------
 // TEMPLATES...
 // ------------------------------------
@@ -106,40 +99,8 @@ function debugmsg( msg )
 
 function informUser( msg )
 {
-  if ( RunningOnPhone )
-    message( msg );
+  message( msg );
 }
-
-
-// ---------------------------------
-// Routines from other files...
-// ---------------------------------
-
-if ( ! RunningOnPhone )
-{
-  combineDateTime = function ( date, time )
-     {
-        var retdate, h, m, s;
-
-        // currently this requires a date value...
-
-        if ( ! time )
-        {
-            retdate = date;
-        }
-        else
-        {
-            retdate = date;
-            retdate.setHours( time.getHours() )
-            retdate.setMinutes( time.getMinutes() );
-            retdate.setSeconds( time.getSeconds() );
-            retdate.setMilliseconds( time.getMilliseconds() );
-        }
-
-        return retdate;
-     }
-}
-
 
 // ---------------------------------
 // SECTION SEQUENCER...
@@ -316,17 +277,9 @@ function prepareCSS()
 {
   var text;
  
-  if ( RunningOnPhone )
-  {
-    var f = file( "/sdcard/memento/Dave/app/MomWellness/wellness.css" );
-    text = f.readAll();
-    f.close();
-  }
-  else
-  {
-    text = fs.readFileSync( "app/MomWellness/wellness.css", "utf-8" );
-    text = text.replace( /file:\/\/\/sdcard\/memento\/Dave\//g, "" );
-  }
+  var f = file( "/sdcard/memento/Dave/app/MomWellness/wellness.css" );
+  text = f.readAll();
+  f.close();
 
   addWellnessSectionToSequencer( new Date(1900, 01, 01), text );
 }
@@ -338,10 +291,7 @@ function prepareCSS()
 
 function getField( e, fieldname )
 {
-  if ( RunningOnPhone )
     return e.field( fieldname );
-  else
-    return e[fieldname]; // temporary code...
 }
 
 function getValue( e, values, fieldname )
@@ -351,12 +301,12 @@ function getValue( e, values, fieldname )
   if ( fieldname in values )
   {
     value = values[fieldname];
-    debugmsg( "FIELD: values[" + fieldname + "] = " + value );
+    //debugmsg( "FIELD: values[" + fieldname + "] = " + value );
   }
   else
   {
     value = getField( e, fieldname );
-    debugmsg( "FIELD: database_lookup[" + fieldname + "] = " + value );
+    //debugmsg( "FIELD: database_lookup[" + fieldname + "] = " + value );
   }
 
   return value;
@@ -414,28 +364,6 @@ function templateFindPlaceholder( str )
 		extra = values[4];
     if ( extra )
       ret.extra = extra;
-
-		//if ( extra )
-		//{
-			//var i;
-			//values = conditional.split( /\s*,\s*/ );
-      //for ( i=0; i<values.length; i++ )
-			//{
-				//if ( values[i] == "iftrue" )
-					//ret.iftrue = true;
-				//else if ( values[i] == "spaceafter" )
-					//ret.spaceafter = true;
-				//else
-				//{
-					//ret.error = true;
-					//ret.errormsg = "conditional parse error: \"" +
-									//conditional + "\" at \"" + values[i] + "\"";
-					//break;
-				//}
-			//}
-		//}
-
-		//debugmsg( values.join("\n") );
 
 	}; // end breakout box
 
@@ -497,7 +425,7 @@ function templateConditionPasses( template, value )
     }
   }
 
-  debugmsg( "Checked template condition " + template.condition + (pass ? " (PASS)" : " (FAIL)") );
+  //debugmsg( "Checked template condition " + template.condition + (pass ? " (PASS)" : " (FAIL)") );
 
   return pass;
 }
@@ -511,9 +439,9 @@ function templateProcessTemplate( templatename, e, values )
 
   template = Templates[templatename];
 
-  debugmsg( "" );
-  debugmsg( "*** PROCESSING TEMPLATE " + templatename );
-  debugmsg( "TEMPLATE: " + template.template );
+  //debugmsg( "" );
+  //debugmsg( "*** PROCESSING TEMPLATE " + templatename );
+  //debugmsg( "TEMPLATE: " + template.template );
 
   str = template.template;
 
@@ -564,38 +492,6 @@ function processIntakeEntries( we )
 {
   // pass Wellness entry...
   
-  var entriesfake = // these are database entries...
-      [
-        { "Date": new Date( 2019, 04, 01, 10, 05, 00 ),
-          "Desc": "Mom ate the whole thing.",
-          "Food": "Eggs, scrambled (2)",
-          "Size": "",
-          "Amount": "All",
-          "Ensure Ounces": null,
-          "Fluid Ounces": null },
-        { "Date": new Date( 2019, 04, 01, 10, 05, 00 ),
-          "Desc": "",
-          "Food": "Toast with butter",
-          "Size": "Made with the large size bread",
-          "Amount": "Three quarters",
-          "Ensure Ounces": null,
-          "Fluid Ounces": null },
-        { "Date": new Date( 2019, 04, 01, 10, 00, 02 ),
-          "Desc": "This was all she could drink.",
-          "Food": "Juice, orange",
-          "Size": "4 oz",
-          "Amount": "",
-          "Ensure Ounces": null,
-          "Fluid Ounces": 2.5 },
-        { "Date": new Date( 2019, 04, 01, 14, 27, 03 ),
-          "Desc": "That was all she wanted.",
-          "Food": "Soup, chicken rice, Campbell's",
-          "Size": "6 oz",
-          "Amount": "Half",
-          "Ensure Ounces": null,
-          "Fluid Ounces": 3 },
-      ];
-
   var entries; // array of entries returned by the database...
   var e, count, i;
   var values = {};
@@ -605,25 +501,17 @@ function processIntakeEntries( we )
   //informUser( "Processing Intake..." );
 
   // get intake entries that link to this wellness entry...
-  if ( RunningOnPhone )
-  {
-    entries = libByName("Mom Intake Log").linksTo( we );
-  }
-  else
-  {
-    entries = entriesfake;
-  }
+  entries = libByName("Mom Intake Log").linksTo( we );
   
-
   // process entries...
   count = entries.length;
   for ( i=0; i<count; i++ )
   {
     e = entries[i];
 
-    debugmsg( "" );
-    debugmsg( "*************************************************" );
-    debugmsg( "ENTRY: " + e["Food"] );
+    //debugmsg( "" );
+    //debugmsg( "*************************************************" );
+    //debugmsg( "ENTRY: " + e["Food"] );
 
     date = getField( e, "Date" );
     html = templateProcessTemplate( "intake", e, values );
@@ -634,17 +522,6 @@ function processIntakeEntries( we )
 function processActivityEntries( we )
 {
   // pass Wellness entry...
-  
-  var entriesfake = // these are database entries...
-      [
-        {
-          "Date": new Date( 2019, 04, 01, 00, 00, 00 ),
-          "Time": new Date( 2019, 04, 01, 09, 50, 00 ),
-          "Activities": [ "Use Commode", "Walk" ],
-          "Duration": null,
-          "Notes": "She walked and stood nicely at the commode.",
-        },
-      ];
 
   var entries; // array of entries returned by the database...
   var e, count, i;
@@ -656,14 +533,7 @@ function processActivityEntries( we )
   //informUser( "Processing Activities..." );
 
   // get activity entries that link to this wellness entry...
-  if ( RunningOnPhone )
-  {
-    entries = libByName("Mom Activities").linksTo( we );
-  }
-  else
-  {
-    entries = entriesfake;
-  }
+  entries = libByName("Mom Activities").linksTo( we );
   
   // process entries...
   count = entries.length;
@@ -693,16 +563,6 @@ function processActivityEntries( we )
 function processHealthEntries( we )
 {
   // pass Wellness entry...
-  
-  var entriesfake = // these are database entries...
-      [
-        {
-          "Date": new Date( 2019, 04, 01, 10, 00, 00 ),
-          Type: "BP",
-          Data:   "120/70",
-          Desc:   "She felt a bit light-headed upon waking up, but her blood pressure was good.",
-        },
-      ];
 
   var entries; // array of entries returned by the database...
   var e, count, i;
@@ -713,15 +573,8 @@ function processHealthEntries( we )
   //informUser( "Processing Health Log..." );
 
   // get heslth log entries that link to this wellness entry...
-  if ( RunningOnPhone )
-  {
-    entries = libByName("Mom Health Log").linksTo( we );
-  }
-  else
-  {
-    entries = entriesfake;
-  }
-  
+  entries = libByName("Mom Health Log").linksTo( we );
+
   // process entries...
   count = entries.length;
   for ( i=0; i<count; i++ )
@@ -732,15 +585,6 @@ function processHealthEntries( we )
     html = templateProcessTemplate( "healthlog", e, values );
     saveWellnessEntryContent( "healthlog", date, html );
   }
-}
-
-function testNum( n, desc )
-{
-  return;
-  if ( isNaN(n) )
-    debugmsg( "NAN " + desc + ": " + n );
-  else
-    debugmsg( " ok " + desc + ": " + n );
 }
 
 function processNotes( we )
@@ -756,16 +600,8 @@ function processNotes( we )
 
   //informUser( "Processing Notes..." );
 
-  if ( RunningOnPhone )
-  {
-    text = getField( we, "Desc" );
-    date = getField( we, "Date Entered" );
-  }
-  else
-  {
-    text = fs.readFileSync("app/MomWellness/testnotes.txt", "utf-8" );
-    date = new Date( 2019, 04, 01, 09, 00, 00 );
-  }
+  text = getField( we, "Desc" );
+  date = getField( we, "Date Entered" );
 
   lines = text.split( /\r{0,1}\n/ );
   count = lines.length;
@@ -778,8 +614,8 @@ function processNotes( we )
 
     if ( matches )
     {
-      debugmsg( "PARSED TIMESTAMP LINE SUCCESSFULLY" );
-      debugmsg( matches.join("\n") );
+      //debugmsg( "PARSED TIMESTAMP LINE SUCCESSFULLY" );
+      //debugmsg( matches.join("\n") );
 
       // got a new date, so spit out the current note...
       if ( note )
@@ -797,13 +633,6 @@ function processNotes( we )
       mi = parseInt(matches[6], 10); // parseInt(matches[6]);
       s  = 0;
       ampm = matches[7];
-      
-      testNum( y,  "y" );
-      testNum( mo, "mo" );
-      testNum( d,  "d" );
-      testNum( h,  "h" );
-      testNum( mi, "mi" );
-      testNum( s,  "s" );
 
       if ( ampm == "am" )
       {
@@ -815,12 +644,10 @@ function processNotes( we )
         if ( h < 12 )
           h += 12;
       }
-
-      testNum( h,  "h" );
       
       date = new Date( y, mo, d, h, mi, s );
 
-      debugmsg( "SETTING DATE TO " + date.toString() );
+      //debugmsg( "SETTING DATE TO " + date.toString() );
       
       //note = "TEMP " + line + "<BR>";
       note = "";
@@ -849,6 +676,7 @@ function processNotes( we )
 
 function updateWellnessConsolidatedView( we )
 {
+  
   var html;
 
   wcvInitGlobals();
@@ -861,22 +689,10 @@ function updateWellnessConsolidatedView( we )
   //informUser( "Finishing..." );
   html = getAllHTML();
 
-  if ( RunningOnPhone )
-  {
-    we.set( "Consolidated Day View", html );
-    //we.set( "debugout", html );
-    //we.set( "debugout", Debugmsg ); //html );
-  }
-  else
-  {
-    console.log( html );
-  }
+  we.set( "Consolidated Day View", html );
+  //we.set( "debugout", html );
+  //we.set( "debugout", Debugmsg ); //html );
 }
-
-var we;
-
-if ( ! RunningOnPhone )
-  updateWellnessConsolidatedView( {} );
 
 // this goes in the script on the phone...
 //updateWellnessConsolidatedView( entry() );
