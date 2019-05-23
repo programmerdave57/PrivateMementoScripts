@@ -4,74 +4,7 @@
 // TEMPLATES...
 // ------------------------------------
 
-var WellnessTemplates = {
 
-  entry: {
-    template: "<div class=entry><div class=entryheading><span class=\"icon {?field:iconclass}\"></span><span class=timestamp>{?field:ts}</span></div>{?field:content}</div>",
-  },
-
-  desc: {
-    template: "<div class=notetext>{?field:*}</div>",
-    fieldname: "Desc",
-    condition: TEMPLATE_CONDITION_NOT_BLANK,
-  },
-
-  notes: {
-    template: "<div class=notetext>{?field:*}</div>",
-    fieldname: "Notes",
-    condition: TEMPLATE_CONDITION_NOT_BLANK,
-  },
-
-  duration: {
-    template: "<div>Duration: {?field:*}</div>",
-    fieldname: "Duration",
-    condition: TEMPLATE_CONDITION_NOT_NULL,
-  },
-    
-  intake_size: {
-    template: " - {?field:*}",
-    fieldname: "Size",
-    condition: TEMPLATE_CONDITION_NOT_BLANK,
-  },
-
-  intake_food: {
-    template: "<div><span class=mainline>{?field:Food}</span>{?template:intake_size}</div>",
-  },
-
-  intake_amount: {
-    template: "<div>Amount: {?field:*}</div>",
-    fieldname: "Amount",
-    condition: TEMPLATE_CONDITION_NOT_BLANK,
-  },
-
-  intake_fluids: {
-    template: "<div class=emblazon>Fluids: {?field:*} ounces</div>",
-    fieldname: "Fluid Ounces",
-    condition: TEMPLATE_CONDITION_NOT_NULL,
-  },
-
-  intake_ensure: {
-    template: "<div class=embluezon>Ensure: {?field:*} ounces</div>",
-    fieldname: "Ensure Ounces",
-    condition: TEMPLATE_CONDITION_NOT_NULL,
-  },
-  
-  intake: {
-    template: "{?template:intake_food}{?template:intake_amount}{?template:intake_fluids}{?template:intake_ensure}{?template:desc}",
-  },
-  
-  activity: {
-    template: "<div><span class=mainline>{?field:Activities}</span></div>{?template:duration}{?template:notes}",
-  },
-  
-  healthlog: {
-    template: "<div><span class=mainline>{?field:Type} - {?field:Data}</span></div>{?template:desc}",
-  },
-  
-  footer: {
-    template: "<p class=fineprint>View updated - {?field:Text}</p>",
-  },
-};
 
 // key "T999999999.888" ...
 // 999999999 = unix time (seconds)...
@@ -79,8 +12,79 @@ var WellnessTemplates = {
 // data is complete HTML text for one timestamped entry...
 var Debugmsg = "";
 
-function wcvInitGlobals()
+function wcvInit()
 {
+  var templates = {
+  
+    entry: {
+      template: "<div class=entry><div class=entryheading><span class=\"icon {?field:iconclass}\"></span><span class=timestamp>{?field:ts}</span></div>{?field:content}</div>",
+    },
+  
+    desc: {
+      template: "<div class=notetext>{?field:*}</div>",
+      fieldname: "Desc",
+      condition: TEMPLATE_CONDITION_NOT_BLANK,
+    },
+  
+    notes: {
+      template: "<div class=notetext>{?field:*}</div>",
+      fieldname: "Notes",
+      condition: TEMPLATE_CONDITION_NOT_BLANK,
+    },
+  
+    duration: {
+      template: "<div>Duration: {?field:*}</div>",
+      fieldname: "Duration",
+      condition: TEMPLATE_CONDITION_NOT_NULL,
+    },
+      
+    intake_size: {
+      template: " - {?field:*}",
+      fieldname: "Size",
+      condition: TEMPLATE_CONDITION_NOT_BLANK,
+    },
+  
+    intake_food: {
+      template: "<div><span class=mainline>{?field:Food}</span>{?template:intake_size}</div>",
+    },
+  
+    intake_amount: {
+      template: "<div>Amount: {?field:*}</div>",
+      fieldname: "Amount",
+      condition: TEMPLATE_CONDITION_NOT_BLANK,
+    },
+  
+    intake_fluids: {
+      template: "<div class=emblazon>Fluids: {?field:*} ounces</div>",
+      fieldname: "Fluid Ounces",
+      condition: TEMPLATE_CONDITION_NOT_NULL,
+    },
+  
+    intake_ensure: {
+      template: "<div class=embluezon>Ensure: {?field:*} ounces</div>",
+      fieldname: "Ensure Ounces",
+      condition: TEMPLATE_CONDITION_NOT_NULL,
+    },
+    
+    intake: {
+      template: "{?template:intake_food}{?template:intake_amount}{?template:intake_fluids}{?template:intake_ensure}{?template:desc}",
+    },
+    
+    activity: {
+      template: "<div><span class=mainline>{?field:Activities}</span></div>{?template:duration}{?template:notes}",
+    },
+    
+    healthlog: {
+      template: "<div><span class=mainline>{?field:Type} - {?field:Data}</span></div>{?template:desc}",
+    },
+    
+    footer: {
+      template: "<p class=fineprint>View updated - {?field:Text}</p>",
+    },
+  };
+  
+  templateInit( templates );
+  
   Debugmsg = "";
 }
 
@@ -340,8 +344,7 @@ function updateWellnessConsolidatedView( we )
 {
   var html;
 
-  wcvInitGlobals();
-  templateInit( WellnessTemplates );
+  wcvInit();
   prepareCSS();
   processActivityEntries( we );
   processIntakeEntries( we );
