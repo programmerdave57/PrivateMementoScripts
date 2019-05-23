@@ -311,6 +311,54 @@ function getTimeDifferenceFromFields( e, field_start_date, field_start_time, fie
     return seconds;
 }
 
+function formatTimestamp( date )
+{
+  //return moment(when).format("ddd YYYY-MM-DD h:mm a");
+
+  var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ];
+  var h, ampm;
+  var ts;
+
+  h = date.getHours();
+  if ( h < 12 )
+  {
+    ampm = "am";
+    if ( h == 0 )
+      h = 12;
+  }
+  else
+  {
+    ampm = "pm";
+    if ( h > 12 )
+      h -= 12;
+  }
+
+  ts = days[date.getDay()] + " " +
+        date.getFullYear() + "-" +
+        ("00" + (date.getMonth()+1)).substr(-2) + "-" +
+        ("00" + date.getDate()).substr(-2) + " " +
+        "" + h + ":" +
+        ("00" + date.getMinutes()).substr(-2) + " " +
+        ampm;
+
+  return ts;
+}
+
+function formatDuration( min )
+{
+  var h, m, duration = "";
+  
+  h = Math.floor( min / 60 );
+  m = min % 60;
+  
+  if ( h )
+    duration = "" + h + " hours, ";
+  
+  duration += "" + m + " minutes";
+  
+  return duration;
+}
+
 function areYouSure()
 {
     if ( ! arg("Are You Sure?") )
@@ -319,3 +367,33 @@ function areYouSure()
         exit();
     }
 }
+
+
+// ---------------------------------
+// DATABASE ACCESS...
+// ---------------------------------
+
+function getField( e, fieldname )
+{
+    return e.field( fieldname );
+}
+
+function getValue( e, values, fieldname )
+{
+  var value;
+
+  if ( fieldname in values )
+  {
+    value = values[fieldname];
+    //debugmsg( "FIELD: values[" + fieldname + "] = " + value );
+  }
+  else
+  {
+    value = getField( e, fieldname );
+    //debugmsg( "FIELD: database_lookup[" + fieldname + "] = " + value );
+  }
+
+  return value;
+}
+   
+
