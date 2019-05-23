@@ -78,7 +78,7 @@ var Templates = {
   },
   
   footer: {
-    template: "<p class=fineprint>{?field:Text}</p>",
+    template: "<p class=fineprint>View update on {?field:Text}</p>",
   },
 };
 
