@@ -100,15 +100,6 @@ function informUser( msg )
 }
 
 // ---------------------------------
-// SECTION SEQUENCER...
-// ---------------------------------
-
-function addWellnessSectionToSequencer( date, text )
-{
-  templateAddSectionToSequencer( date, text );
-}
-
-// ---------------------------------
 // WELLNESS STUFF...
 // ---------------------------------
 
