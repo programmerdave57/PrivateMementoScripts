@@ -231,16 +231,16 @@ function wcvHandleSpecialNoteTypes( note )
   ret.nclass = "note";
   ret.note = note;
   
-  if ( note.startsWith("~~ Call Placed ~~\n") )
+  if ( note.startsWith("~~ Call Placed ~~") )
   {
     ret.note = note.substr(17);
-    ret.note = ret.note.replace( /\n/, "<br>" );
+    ret.note.replace( /\n/, "<br>" );
     ret.nclass = "callout";
   }
-  else if ( note.startsWith("~~ Call Received ~~\n") )
+  else if ( note.startsWith("~~ Call Received ~~") )
   {
     ret.note = note.substr(20);
-    ret.note = ret.note.replace( /\n/, "<br>" );
+    ret.note.replace( /\n/, "<br>" );
     ret.nclass = "callin";
   }
   
