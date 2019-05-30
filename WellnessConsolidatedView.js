@@ -224,6 +224,27 @@ function processHealthEntries( we )
   }
 }
 
+function wcvHandleSpecialNoteTypes( note )
+{
+  var ret = {};
+  
+  ret.nclass = "note";
+  if ( note.startsWith("~~ Call Placed ~~\n") )
+  {
+    ret.note = note.substr(17);
+    ret.note = ret.note.replace( /\n/, "<br>" );
+    ret.nclass = "callout";
+  }
+  else if ( note.startsWith("~~ Call Received ~~\n") )
+  {
+    ret.note = note.substr(20);
+    ret.note = ret.note.replace( /\n/, "<br>" );
+    ret.nclass = "callin";
+  }
+  
+  return ret;
+}
+
 function processNotes( we )
 {
   // pass Wellness entry...
@@ -255,15 +276,14 @@ function processNotes( we )
       // got a new date, so spit out the current note...
       if ( note )
       {
-        var eclass = "note";
-        if ( note.startsWith("~~ Call Placed ~~") )
-          eclass = "callout";
-        else if ( note.startsWith("~~ Call Received ~~") )
-          eclass = "callin";
+        var nclass, ret;
+        ret = wcvHandleSpecialNoteTypes( note )
+        nclass = ret.nclass;
+        note = ret.note;
         note = applyDaveMarkup( note );
         values["Desc"] = paragraphizeText(note);
         html = templateProcessTemplate( "desc", null, values );
-        saveWellnessEntryContent( eclass, date, html );
+        saveWellnessEntryContent( nclass, date, html );
       }
 
       y  = parseInt(matches[2], 10);
@@ -302,17 +322,14 @@ function processNotes( we )
 
   if ( note )
   {
-    // duplicated eclass code...
-    // going fast, no time...
-    var eclass = "note";
-    if ( note.startsWith("~~ Call Placed ~~") )
-      eclass = "callout";
-    else if ( note.startsWith("~~ Call Received ~~") )
-      eclass = "callin";
+    var nclass, ret;
+    ret = wcvHandleSpecialNoteTypes( note )
+    nclass = ret.nclass;
+    note = ret.note;
     note = applyDaveMarkup( note );
     values["Desc"] = paragraphizeText(note);
     html = templateProcessTemplate( "desc", null, values );
-    saveWellnessEntryContent( eclass, date, html );
+    saveWellnessEntryContent( nclass, date, html );
   }
 }
 
