@@ -94,11 +94,6 @@ function debugmsg( msg )
 	Debugmsg += "\n" + msg;
 }
 
-function informUser( msg )
-{
-  message( msg );
-}
-
 // ---------------------------------
 // WELLNESS STUFF...
 // ---------------------------------
@@ -146,8 +141,6 @@ function processIntakeEntries( we )
   var html;
   var date;
 
-  //informUser( "Processing Intake..." );
-
   // get intake entries that link to this wellness entry...
   entries = libByName("Mom Intake Log").linksTo( we );
   
@@ -177,8 +170,6 @@ function processActivityEntries( we )
   var html;
   var date, time, datetime;
   var min, duration;
-
-  //informUser( "Processing Activities..." );
 
   // get activity entries that link to this wellness entry...
   entries = libByName("Mom Activities").linksTo( we );
@@ -218,8 +209,6 @@ function processHealthEntries( we )
   var html;
   var date, time, datetime;
 
-  //informUser( "Processing Health Log..." );
-
   // get heslth log entries that link to this wellness entry...
   entries = libByName("Mom Health Log").linksTo( we );
 
@@ -246,8 +235,6 @@ function processNotes( we )
   var values = {};
   var html;
 
-  //informUser( "Processing Notes..." );
-
   text = getField( we, "Desc" );
   date = getField( we, "Date Entered" );
 
@@ -268,10 +255,15 @@ function processNotes( we )
       // got a new date, so spit out the current note...
       if ( note )
       {
+        var eclass = "note";
+        if ( note.startsWith("~~ Call Placed ~~") )
+          eclass = "callout";
+        else if ( note.startsWith("~~ Call Received ~~") )
+          eclass = "callin";
         note = applyDaveMarkup( note );
         values["Desc"] = paragraphizeText(note);
         html = templateProcessTemplate( "desc", null, values );
-        saveWellnessEntryContent( "note", date, html );
+        saveWellnessEntryContent( eclass, date, html );
       }
 
       y  = parseInt(matches[2], 10);
@@ -310,10 +302,17 @@ function processNotes( we )
 
   if ( note )
   {
+    // duplicated eclass code...
+    // going fast, no time...
+    var eclass = "note";
+    if ( note.startsWith("~~ Call Placed ~~") )
+      eclass = "callout";
+    else if ( note.startsWith("~~ Call Received ~~") )
+      eclass = "callin";
     note = applyDaveMarkup( note );
     values["Desc"] = paragraphizeText(note);
     html = templateProcessTemplate( "desc", null, values );
-    saveWellnessEntryContent( "note", date, html );
+    saveWellnessEntryContent( eclass, date, html );
   }
 }
 
@@ -343,7 +342,6 @@ function updateWellnessConsolidatedView( we )
   processNotes( we );
   addFooter();
 
-  //informUser( "Finishing..." );
   html = getAllHTML();
 
   we.set( "Consolidated Day View", html );
