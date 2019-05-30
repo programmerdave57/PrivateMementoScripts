@@ -239,7 +239,7 @@ function wcvHandleSpecialNoteTypes( note )
   }
   else if ( note.startsWith("~~ Call Received ~~") )
   {
-    ret.note = note.substr(20);
+    ret.note = note.substr(21);
     ret.note = ret.note.replace( /\n/, "<br>" );
     ret.nclass = "callin";
   }
