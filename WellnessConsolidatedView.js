@@ -229,6 +229,8 @@ function wcvHandleSpecialNoteTypes( note )
   var ret = {};
   
   ret.nclass = "note";
+  ret.note = note;
+  
   if ( note.startsWith("~~ Call Placed ~~\n") )
   {
     ret.note = note.substr(17);
