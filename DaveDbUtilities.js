@@ -397,3 +397,28 @@ function getValue( e, values, fieldname )
 }
    
 
+
+// ---------------------------------
+// HISTORY FIELD...
+// ---------------------------------
+
+function addToHistory( e, code, line, note, date, fieldname )
+{
+  var history, msg;
+  
+  if ( ! date )
+    date = new Date();
+  if ( ! fieldname )
+    fieldname = "History";
+  
+  history = e.field( fieldname );
+  
+  msg = "D: " + moment(date).format('ddd, MMM D, YYYY, h:mm:ss a');
+  if ( code )
+    msg += "\n" + code + ": " + line;
+  if ( note )
+    msg += "\n" + "N: " + note;
+  
+  history = msg + "\n" + history;
+  e.set( fieldname, history );
+}
