@@ -17,6 +17,7 @@ function AssociateShoppingEntryWithProducts( e )
 function BuyThisProduct( thise )
 {
     var lib, e, id, title;
+    var ret = true;
 
     id = thise.field( "ShoppingListEntryId" );
     title = thise.title;
@@ -26,6 +27,7 @@ function BuyThisProduct( thise )
     if ( ! e )
     {
       message( "PRODUCT NOT ASSOCIATED WITH A SHOPPING LIST ENTRY!!!" );
+      tet = false;
     }
     else
     {
@@ -33,4 +35,6 @@ function BuyThisProduct( thise )
       if ( e.field("Disposition") == "Available" )
         e.set("Disposition", "Buy" );
     }
+    
+    return ret;
 }
