@@ -24,4 +24,6 @@ function BuyThisProduct( thise )
     lib = libByName("Shopping List" );
     e = lib.findById( id );
     e.set( "Product", title );
+    if ( e.field("Disposition") == "Available" )
+      e.set("Disposition", "Buy" );
 }
