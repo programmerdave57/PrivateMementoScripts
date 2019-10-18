@@ -23,7 +23,14 @@ function BuyThisProduct( thise )
 
     lib = libByName("Shopping List" );
     e = lib.findById( id );
-    e.set( "Product", title );
-    if ( e.field("Disposition") == "Available" )
-      e.set("Disposition", "Buy" );
+    if ( ! e )
+    {
+      message( "PRODUCT NOT ASSOCIATED WITH A SHOPPING LIST ENTRY!!!" );
+    }
+    else
+    {
+      e.set( "Product", title );
+      if ( e.field("Disposition") == "Available" )
+        e.set("Disposition", "Buy" );
+    }
 }
