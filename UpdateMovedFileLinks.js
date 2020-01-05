@@ -129,7 +129,7 @@ function updateMovedFileLinks( libname, fieldname )
     entries = lib.entries();
     count = entries.length;
     for ( i=0; i<count; i++ )
-        umfl_updateOneEntry( entries[i] );
+        umfl_updateOneEntry( entries[i], fieldname );
     
     umfl_mylog( "END_PROCESSING_LIB: " + libname );
     
