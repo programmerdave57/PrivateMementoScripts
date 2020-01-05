@@ -120,8 +120,9 @@ function updateMovedFileLinks( libname, fieldname )
     lib = libByName( libname );
     //libname = lib.title;
     
-    umfl_openLog( umfl_getLogName(libname) );
+    umfl_openLog( umfl_getLogName("UMFL", libname) );
     
+    umfl_mylog( "Update Moved File Links" );
     umfl_mylog( "PROCESSING_LIB: " + libname );
     umfl_mylog( "FIELDNAME: " + fieldname );
     umfl_mylog( "TEST_MODE_NO_UPDATES" );
