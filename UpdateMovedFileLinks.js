@@ -1,7 +1,11 @@
 // UpdateMovedFileLinks.js
 
-var umfl_NewBeginning = "file:///sdcard/Davestore/memento/files/Dave/";
-var umfl_OldBeginning = "file:///storage/extSdCard/Dave/memento/files/";
+//var umfl_NewBeginning = "file:///sdcard/Davestore/memento/files/Dave/";
+//var umfl_OldBeginning = "file:///storage/extSdCard/Dave/memento/files/";
+
+var umfl_NewBeginning = "file:///sdcard/Davestore/Photos/";
+var umfl_OldBeginning = "file:///storage/extSdCard/Dave/Photos/";
+
 var umfl_LogDir = "/sdcard/Dave/logs/memento";
 var umfl_LogFileName;
 var umfl_LogFile;    
