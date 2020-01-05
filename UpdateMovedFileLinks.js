@@ -101,7 +101,7 @@ function umfl_updateOneEntry( e, fieldname )
     if ( dirty )
     {
         umfl_mylog( "LINKS_UPDATED: " + newnames );
-        //e.set( fieldname, newnames );
+        e.set( fieldname, newnames );
     }
     else
     {
@@ -125,7 +125,7 @@ function updateMovedFileLinks( libname, fieldname )
     umfl_mylog( "Update Moved File Links" );
     umfl_mylog( "PROCESSING_LIB: " + libname );
     umfl_mylog( "FIELDNAME: " + fieldname );
-    umfl_mylog( "TEST_MODE_NO_UPDATES" );
+    //umfl_mylog( "TEST_MODE_NO_UPDATES" );
     
     entries = lib.entries();
     count = entries.length;
