@@ -14,7 +14,7 @@ function umfl_twonum( n )
     return out;
 }
 
-function umfl_getLogName( op, libname )
+function umfl_getLogName( op, libname, fieldname )
 {
     var name;
     var now;
@@ -29,7 +29,7 @@ function umfl_getLogName( op, libname )
         umfl_twonum( now.getMinutes() ) +
         umfl_twonum( now.getSeconds() );
 
-    name += "_" + op + "_" + libname + ".txt";
+    name += "_" + op + "_" + libname + "_" + fieldname + ".txt";
 
     name = umfl_LogDir + "/" + name;
     return name;
@@ -120,7 +120,7 @@ function updateMovedFileLinks( libname, fieldname )
     lib = libByName( libname );
     //libname = lib.title;
     
-    umfl_openLog( umfl_getLogName("UMFL", libname) );
+    umfl_openLog( umfl_getLogName("UMFL", libname, fieldname) );
     
     umfl_mylog( "Update Moved File Links" );
     umfl_mylog( "PROCESSING_LIB: " + libname );
