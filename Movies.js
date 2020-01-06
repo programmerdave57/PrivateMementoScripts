@@ -45,7 +45,8 @@ function setEntryId( e )
 
 function setPosterFilename( e )
 {
-  var path = "file:///sdcard/Davestore/memento/files/Dave/Images/Movie Posters";
+//                   /storage/emulated/0/Davestore/memento/files/Dave/Images/Movie Posters
+  var path = "file:///storage/emulated/0/Davestore/memento/files/Dave/Images/Movie Posters";
   var id, fname;
   var url, pos;
   var ext = ".jpg";
