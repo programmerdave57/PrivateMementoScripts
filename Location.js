@@ -34,7 +34,7 @@ function milesFromNvpLocation( loc, k2 )
     
     return round2(
         milesBetween(
-            loc.lat, loc.lng 
+            loc.lat, loc.lng,
             loc2.lat, loc2.lng));
 }
 
