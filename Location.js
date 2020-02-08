@@ -49,3 +49,22 @@ function milesFromOffice( loc )
     return milesFromNvpLocation(
         loc, "Office");
 }
+
+function updatePlaceEntryDistances(e)
+{
+    var loc, dhome, doff;
+
+    loc = e.field("GPS Location");
+    if ( loc )
+    {
+        dhome = milesFromHome(loc);
+        doff = milesFromOffice(loc);
+    }
+    else
+    {
+        dhome = 9999.0;
+        doff = 9999.0;
+    }
+    e.set("Miles from Home", dhome);
+    e.set("Miles from Office", doff);
+}
