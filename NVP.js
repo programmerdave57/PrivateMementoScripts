@@ -27,3 +27,8 @@ function getNvpString( k1, k2 )
 {
   return getNvpValue(k1, k2, "Value String");
 }
+
+function getNvpLocation( k1, k2 )
+{
+    return getNvpValue(k1, k2, "Value Location");
+}
