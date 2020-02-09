@@ -220,9 +220,12 @@ function processField( e, schema, i )
           ret = makeLinks( fvalue );
           break;
     case "ft_map":
-          ret = {};
-          ret.lat = fvalue.lat;
-          ret.lng = fvalue.lng;
+          if ( fvalue )
+          {
+              ret = {};
+              ret.lat = fvalue.lat;
+              ret.lng = fvalue.lng;
+          }
           break;
   }
 
