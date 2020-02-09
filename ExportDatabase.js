@@ -219,6 +219,11 @@ function processField( e, schema, i )
     case "ft_lib_entry":
           ret = makeLinks( fvalue );
           break;
+    case "ft_map":
+          ret = {};
+          ret.lat = fvalue.lat;
+          ret.lng = fvalue.lng;
+          break;
   }
 
   return ret;
