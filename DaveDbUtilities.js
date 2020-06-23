@@ -77,6 +77,47 @@ function ShowAgoMessage( datefieldname )
     message( moment(entry().field(datefieldname)).fromNow() );
 }
 
+function GetTimeDurationStringDays( d1, d2 )
+{
+    var d1min, d2min;
+    var d, h, m;
+    
+    d1min = Math.floor(
+        d1.getTime() / 1000 / 60);
+    d2min = Math.floor(
+        d2.getTime() / 1000 / 60);
+        
+    m = d2min - d1min;
+    
+    d = Math.floor( m / 24 / 60 );
+    m = m - (d * 24 * 60);
+    
+    h = Math.floor( m / 60 );
+    m = m - (h * 60 );
+    
+    s = "";
+    if ( d )
+    {
+        s += "" + d + " day";
+        if ( d > 1 )
+            s += "s";
+    }
+    if ( d + h )
+    {
+        if ( d )
+            s += " ";
+        s += "" + h + " hour";
+        if ( h > 1 )
+            s += "s";
+        s += " ";
+    }
+    s += "" + m + " minute";
+    if ( m > 1 )
+        s += "s";
+        
+    return s;
+}
+
 // current entry stuff...
 function MakeCurrentIdFilename( lib )
 {
