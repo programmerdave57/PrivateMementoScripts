@@ -222,6 +222,9 @@ function processField( e, schema, i )
     case "ft_file":
           ret = massageArray( fvalue );
           break;
+    case "ft_signature":
+          ret = massageArray( fvalue );
+          break;
     case "ft_lib_entry":
           ret = makeLinks( fvalue );
           break;
@@ -236,6 +239,8 @@ function processField( e, schema, i )
     case "ft_rich_text":
           break;
     case "ft_barcode":
+          break;
+    case "ft_color":
           break;
     default:
       if ( ! UnknownFieldTypesChecker[ftype] )
