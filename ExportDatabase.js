@@ -244,6 +244,9 @@ function processField( e, schema, i )
               ret.lng = fvalue.lng;
           }
           break;
+    case "ft_contact":
+          ret = fvalue.fullName;
+          break;
     case "ft_rich_text":
           break;
     case "ft_barcode":
