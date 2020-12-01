@@ -67,6 +67,14 @@ function getTimestamp()
   return tz;
 }
 
+function massageArray( a )
+{
+  var ret = [];
+  for ( i=0; i<a.length; i++ )
+  ret.push( a[i] );
+  return ret;
+}
+
 function getliblist()
 {
   var arr;
@@ -79,7 +87,7 @@ function getliblist()
     arr = f.readLines();
   }
 
-  return arr.sort();
+  return massageArray(arr).sort();
 }
 
 function listlibs()
@@ -166,14 +174,6 @@ function processField( e, schema, i )
   var ret;
   var fname, ftype, fvalue;
   var count, i, v;
-
-  function massageArray( a )
-  {
-    var ret = [];
-    for ( i=0; i<a.length; i++ )
-    ret.push( a[i] );
-    return ret;
-  }
 
   fname = schema.templates[i].tt;
   ftype = schema.templates[i].type;
