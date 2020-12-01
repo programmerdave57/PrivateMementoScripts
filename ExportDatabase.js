@@ -245,7 +245,10 @@ function processField( e, schema, i )
           }
           break;
     case "ft_contact":
-          ret = fvalue.fullName;
+          if ( fvalue )
+            ret = fvalue.fullName;
+          else
+            ret = null;
           break;
     case "ft_rich_text":
           break;
