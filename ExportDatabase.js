@@ -25,6 +25,7 @@ const SCRIPTVER = 3;
 
 var UnknownFieldTypesChecker = {};
 var UnknownFieldTypes = [];
+var UnknownFieldMsgs = [];
 
 function davelog( msg )
 {
@@ -247,6 +248,8 @@ function processField( e, schema, i )
       {
           UnknownFieldTypesChecker[ftype] = true;
           UnknownFieldTypes.push(ftype);
+          UnknownFieldMsgs.push(
+            ftype + ": " + schema.title );
       }
   }
 
@@ -360,6 +363,7 @@ function DaveExportDatabase_main()
   if ( UnknownFieldTypes.length > 0 )
   {
       davelog( "Unknown field types: " + JSON.stringify(UnknownFieldTypes));
+      davelog( UnknownFieldMsgs.join("\n") );
   }
   else
   {
