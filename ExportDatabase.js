@@ -206,6 +206,8 @@ function processField( e, schema, i )
           break;
     case "ft_int":
           break;
+    case "ft_int_list":
+          break;
     case "ft_real":
           break;
     case "ft_boolean":
@@ -221,6 +223,9 @@ function processField( e, schema, i )
     case "ft_web":
           break;
     case "ft_file":
+          ret = massageArray( fvalue );
+          break;
+    case "ft_audio":
           ret = massageArray( fvalue );
           break;
     case "ft_signature":
