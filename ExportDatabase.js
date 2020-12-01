@@ -243,6 +243,17 @@ function processField( e, schema, i )
           break;
     case "ft_color":
           break;
+    case "ft_calc":
+          ret = "";
+          break;
+    case "ft_script":
+          ret = "";
+          break;
+    case "ft_subheader":
+          ret = "";
+          break;
+    case "ft_money":
+          break;
     default:
       if ( ! UnknownFieldTypesChecker[ftype] )
       {
