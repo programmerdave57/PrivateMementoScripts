@@ -23,6 +23,9 @@ const SCRIPTVER = 3;
 // converted tabs to spaces because of Quoda...
 // 2019-04-21 adding summary file and copy of LibraryNames.txt
 
+var UnknownFieldTypesChecker = {};
+var UnknownFieldTypes = [];
+
 function davelog( msg )
 {
   log( msg );
@@ -230,6 +233,12 @@ function processField( e, schema, i )
               ret.lng = fvalue.lng;
           }
           break;
+    default:
+      if ( ! UnknownFieldTypesChecker[ftype] )
+      {
+          UnknownFieldTypesChecker[ftype] = true;
+          UnknownFieldTypes.push(ftype);
+      }
   }
 
   return ret;
@@ -339,6 +348,14 @@ function DaveExportDatabase_main()
   }
   
   davelog( "Total entries:" + totalcount );
+  if ( UnknownFieldTypes.length > 0 )
+  {
+      davelog( "Unknown field types: " + JSON.stringify(UnknownFieldTypes));
+  }
+  else
+  {
+      davelog( "All field types known" );
+  }
 }
 
 //DaveExportDatabase_main();
