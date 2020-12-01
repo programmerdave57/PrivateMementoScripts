@@ -201,6 +201,8 @@ function processField( e, schema, i )
           break;
     case "ft_str_list":
           break;
+    case "ft_radiobutton":
+          break;
     case "ft_multy_str_list":
           ret = massageArray( fvalue );
           break;
