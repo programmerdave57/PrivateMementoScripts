@@ -233,6 +233,10 @@ function processField( e, schema, i )
               ret.lng = fvalue.lng;
           }
           break;
+    case "ft_rich_text":
+          break;
+    case "ft_barcode":
+          break;
     default:
       if ( ! UnknownFieldTypesChecker[ftype] )
       {
