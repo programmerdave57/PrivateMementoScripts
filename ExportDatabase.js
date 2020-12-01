@@ -211,6 +211,9 @@ function processField( e, schema, i )
     case "ft_img":
           ret = massageArray( fvalue );
           break;
+    case "ft_tags":
+          ret = massageArray( fvalue );
+          break;
     case "ft_web":
           break;
     case "ft_file":
