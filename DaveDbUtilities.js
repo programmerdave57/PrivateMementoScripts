@@ -62,7 +62,10 @@ function AddStandardTsNoteToDesc()
     adder = arg("Standard Note");
     if ( adder )
     {
-        note = adder + " " + note;
+        if ( note )
+            note = adder + " " + note;
+        else
+            note = adder;
     }
     
     when = GetTimestampWithOffset(
