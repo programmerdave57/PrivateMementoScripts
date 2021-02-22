@@ -1,5 +1,6 @@
 // DaveDbUtilities.js
 
+// testing GitHub access
 function AddNoteToField(
             e, note, fieldname )
 {
