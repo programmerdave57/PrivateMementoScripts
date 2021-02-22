@@ -58,13 +58,20 @@ function AddStandardTsNoteToDesc()
     // for convenience...
     // uses all standard names...
     
+    note = arg("Note");
+    adder = arg("Standard Note");
+    if ( adder )
+    {
+        note = adder + " " + note;
+    }
+    
     when = GetTimestampWithOffset(
                arg("When"),
                arg("Minutes Ago") );
 
     AddTsNoteToField(
        entry(),
-       arg("Note"),
+       note,
        "Desc",
        when );
 }
