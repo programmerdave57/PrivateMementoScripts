@@ -60,7 +60,10 @@ function AddStandardTsNoteToDesc()
     // uses all standard names...
     
     note = arg("Note");
-    adder = arg("Standard Note");
+    adder = [arg("Standard Note"),
+             arg("Standard Note Multi" ];
+message(typeof adder + " " + adder);
+exit();
     if ( adder )
     {
         if ( note )
