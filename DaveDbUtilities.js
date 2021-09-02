@@ -59,15 +59,21 @@ function AddStandardTsNoteToDesc()
 
     var adder1, adderm, addera=[];
     
-    try {}
+    try
+    {
         adder1 = arg("Standard Note" );
-    } catch (e) {
+    }
+    catch (e)
+    {
         adder1 = "";
     }
     
-    try {}
+    try
+    {
         adderm = arg("Standard Note Multi" );
-    } catch (e) {
+    }
+    catch (e)
+    {
         adderm = [];
     }
     
