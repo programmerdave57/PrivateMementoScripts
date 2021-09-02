@@ -54,16 +54,38 @@ function GetTimestampWithOffset(
 
 function AddStandardTsNoteToDesc()
 {
-    var when;
-    
     // for convenience...
     // uses all standard names...
+
+    var adder1, adderm, addera=[];
     
+    try {}
+        adder1 = arg("Standard Note" );
+    } catch (e) {
+        adder1 = "";
+    }
+    
+    try {}
+        adderm = arg("Standard Note Multi" );
+    } catch (e) {
+        adderm = [];
+    }
+    
+    if ( adder1 )
+        addera += [adder1];
+    addera += adderm;
+    
+    message(typeof addera + " " + addera);
+    exit();
+}
+
+function AddStandardTsNoteToDesc2(arr)
+{
+    var when, note;
+
     note = arg("Note");
-    adder = [arg("Standard Note"),
-             arg("Standard Note Multi" ];
-message(typeof adder + " " + adder);
-exit();
+    
+    
     if ( adder )
     {
         if ( note )
