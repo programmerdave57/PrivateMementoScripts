@@ -4,3 +4,8 @@ function davetest1()
 }
 
 // hello from the phone via PocketGit ...
+
+function davetest2()
+{
+    return "PoctetGit is back in business!!!" );
+}
