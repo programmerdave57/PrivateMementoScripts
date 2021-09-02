@@ -58,6 +58,7 @@ function AddStandardTsNoteToDesc()
     // uses all standard names...
 
     var adder1, adderm, addera=[];
+    var i;
     
     try
     {
@@ -78,8 +79,9 @@ function AddStandardTsNoteToDesc()
     }
     
     if ( adder1 )
-        addera += [adder1];
-    addera += adderm;
+        addera.push(adder1);
+    for ( i=0; i<adderm.length; i++ )
+        addera.push( adderm[i] );
     
     message(addera.length);
     exit();
