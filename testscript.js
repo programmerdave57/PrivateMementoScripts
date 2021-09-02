@@ -7,5 +7,5 @@ function davetest1()
 
 function davetest2()
 {
-    return "PoctetGit is back in business!!!" );
+    return "PoctetGit is back in business!!!";
 }
