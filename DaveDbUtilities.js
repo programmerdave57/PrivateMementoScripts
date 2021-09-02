@@ -52,7 +52,7 @@ function GetTimestampWithOffset(
     return ts;
 }
 
-function AddStandardTsNoteToDesc()
+function _getStandardNoteValues()
 {
     // for convenience...
     // uses all standard names...
@@ -83,23 +83,42 @@ function AddStandardTsNoteToDesc()
     for ( i=0; i<adderm.length; i++ )
         addera.push( adderm[i] );
     
-    message(addera.length);
-    exit();
+    //message(addera.length);
+    //exit();
+    
+    return addera;
 }
 
-function AddStandardTsNoteToDesc2(arr)
+function AddStandardTsNoteToDesc()
 {
-    var when, note;
+    var when, note, add="", 
+        count, i, addera;
 
     note = arg("Note");
     
-    
-    if ( adder )
+    addera = _getStandardNoteValues();
+    count = addera.length;
+    if ( count == 0 )
     {
         if ( note )
-            note = adder + " " + note;
-        else
-            note = adder;
+            add += note;
+    }
+    else
+    {
+        for ( i=0; i<count; i++ )
+        {
+            if ( add )
+                add += "\n";
+            add += addera[i];
+        }
+        if ( note )
+        {
+            if ( count > 1 )
+                add += "\n"; // new behav
+            else
+                add += " "; // old behav
+            add += note;
+        }
     }
     
     when = GetTimestampWithOffset(
@@ -108,7 +127,7 @@ function AddStandardTsNoteToDesc2(arr)
 
     AddTsNoteToField(
        entry(),
-       note,
+       add,
        "Desc",
        when );
 }
