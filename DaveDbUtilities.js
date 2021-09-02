@@ -81,7 +81,7 @@ function AddStandardTsNoteToDesc()
         addera += [adder1];
     addera += adderm;
     
-    message(addera);
+    message(addera.length);
     exit();
 }
 
