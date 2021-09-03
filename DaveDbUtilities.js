@@ -17,16 +17,22 @@ function AddNoteToField(
 }
   
 function AddTsNoteToField(
-  e, note, fieldname, optional_when )
+  e, note, fieldname, optional_when, optional_approx )
 {
-    var when, ts;
+    var when, approx, ts;
     
     if ( optional_when )
         when = optional_when; // Date() object...
     else
         when = new Date();
+    
+    
+    
+    
     ts = moment(when).format("ddd YYYY-MM-DD h:mm a");
-    note = ts + "\n" + note;
+    note = ts +
+        (optional_approx ? " (time approx)" : "") +
+        "\n" + note;
 
     AddNoteToField(
             e, note, fieldname);
@@ -92,9 +98,19 @@ function _getStandardNoteValues()
 function AddStandardTsNoteToDesc()
 {
     var when, note, add="", 
-        count, i, addera;
+        count, i, addera,
+        approx;
 
     note = arg("Note");
+    
+    try
+    {
+        approx = arg("Time Approximate" );
+    }
+    catch (e)
+    {
+        approx = false;
+    }
     
     addera = _getStandardNoteValues();
     count = addera.length;
@@ -129,7 +145,7 @@ function AddStandardTsNoteToDesc()
        entry(),
        add,
        "Desc",
-       when );
+       when, approx );
 }
 
 //AddTsNoteToField(
