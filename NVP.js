@@ -42,7 +42,15 @@ function getNvpReal( k1, k2 )
 
 function getNvpInteger( k1, k2 )
 {
-  return getNvpValue(k1, k2, "Value Integer");
+    return getNvpValue(k1, k2, "Value Integer");
+}
+
+function getNvpIntegerAutoIncrement(k1, k2)
+{
+	  var v;
+	  v = getNvpInteger(k1,k2);
+	  setNvpInteger(k1,k2,v+1);
+	  return v;
 }
 
 function setNvpInteger(k1, k2  value )
