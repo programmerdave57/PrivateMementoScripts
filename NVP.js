@@ -23,6 +23,7 @@ function setNvpValue( k1, k2, fname, value )
   if ( e )
   {
       e.set( fname, value );
+      e.set( "Date Modified", new Date() );
   }
  else
  {
