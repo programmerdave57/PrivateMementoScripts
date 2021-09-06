@@ -53,7 +53,7 @@ function getNvpIntegerAutoIncrement(k1, k2)
 	  return v;
 }
 
-function setNvpInteger(k1, k2  value )
+function setNvpInteger(k1, k2,  value )
 {
 	  setNvpValue(k1,k2,"Value Integer",value);
 }
